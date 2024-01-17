@@ -3,11 +3,11 @@ function Home() {
 
     return (
         <>
-            <div  className="
+            <div className="
             bg-indigo-900 
             flex 
             justify-center">
-                <div  className="
+                <div className="
                 container 
                 grid 
                 grid-cols-2 
@@ -44,9 +44,6 @@ function Home() {
                             alt="Imagem da Página Home"
                             className="w-2/3"
                         />
-                    </div>
-                    <div>
-                        Lorem ipsum, dolor sit amet consectetur adipisicing elit. Fugit dignissimos reiciendis dolores maiores corrupti sunt delectus pariatur quaerat optio, odio, laborum facilis. Culpa, assumenda qui eaque magnam aspernatur vero? Vero.
                     </div>
                 </div>
             </div>
