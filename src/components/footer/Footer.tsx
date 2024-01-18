@@ -14,8 +14,8 @@ function Footer() {
                     <div className='flex gap-2'>
                         <a href="https://github.com/LuizEduardoSC" target="_blank"><GithubLogo size={48} weight='bold' /></a>
                         <a href="https://www.linkedin.com/in/luiz-eduardosc/" target="_blank"><LinkedinLogo size={48} weight='bold' /></a>
-                        <a href=""><InstagramLogo size={48} weight='bold' /></a>
-                        <a href=""><FacebookLogo size={48} weight='bold' /></a>
+                        <a href="" target="_blank"><InstagramLogo size={48} weight='bold' /></a>
+                        <a href="" target="_blank"><FacebookLogo size={48} weight='bold' /></a>
                     </div>
                 </div>
             </div>

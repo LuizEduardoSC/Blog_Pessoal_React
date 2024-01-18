@@ -3,11 +3,11 @@ function Home() {
 
     return (
         <>
-            <div className="
+            <div id="container" className="
+            flex
             bg-indigo-900 
-            flex 
             justify-center">
-                <div className="
+                <div id="subcontainer" className="
                 container 
                 grid 
                 grid-cols-2 
