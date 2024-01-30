@@ -4,17 +4,18 @@ import { useNavigate, useParams } from 'react-router-dom'
 import { AuthContext } from '../../../contexts/AuthContext'
 import Postagem from '../../../models/Postagem'
 import { buscar, deletar } from '../../../services/Service'
+import { ToastAlerta } from '../../../utils/ToastAlerts'
 
 function DeletarPostagem() {
+
+    // Criamos uma constante que recebe o hook useNavigate, para podermos redirecionar o usuário
+    const navigate = useNavigate()
 
     // Variavel de Estado de Carregamento - usada para indicar que está havendo alguma requisição ao Back
     const [isLoading, setIsLoading] = useState<boolean>(false)
 
     // Variavel de Estado de Postagem - Registra um Objeto da Model Postagem. Usada para armazena os dados que foram digitados nos inputs do formulario
     const [postagem, setPostagem] = useState<Postagem>({} as Postagem)  // Iniciamos um objeto vazio da Model Postagem
-
-    // Criamos uma constante que recebe o hook useNavigate, para podermos redirecionar o usuário
-    const navigate = useNavigate()
 
     // useParams = Esse hook serve para pegarmos parametros que veem na url do FRONT
     const { id } = useParams<{ id: string }>()  // Aqui, pegamos da URL um parametro/variavel chamado ID. Veja a rota de editarPostagem no APP.tsx 
@@ -33,7 +34,7 @@ function DeletarPostagem() {
             })
         } catch (error: any) {
             if (error.toString().includes('403')) {                 // Verifica se o erro é o 403 - Proibido que indica que o Token Expirou
-                alert('O token expirou, favor logar novamente')     // Avisa ao usuário que deu ruim
+                ToastAlerta('O token expirou, favor logar novamente', '')     // Avisa ao usuário que deu ruim
                 handleLogout()                                      // Chama a função para deslogar o usuário
             }
         }
@@ -44,7 +45,7 @@ function DeletarPostagem() {
     // Com isso, o avisamos e enviamos para a tela de Login
     useEffect(() => {
         if (token === '') {
-            alert('Você precisa estar logado')
+            ToastAlerta('Você precisa estar logado', '')
             navigate('/login')
         }
     }, [token])
@@ -58,10 +59,6 @@ function DeletarPostagem() {
         }
     }, [id])
 
-    function retornar() {
-        navigate("/postagens")
-    }
-
     // Função assincrona que vai deletar a Postagem
     async function deletarPostagem() {
         setIsLoading(true)
@@ -73,15 +70,21 @@ function DeletarPostagem() {
                 }
             })
 
-            alert('Postagem apagada com sucesso')
+            ToastAlerta('Postagem apagada com sucesso', 'sucesso')
 
         } catch (error) {
-            alert('Erro ao apagar a Postagem')
+            ToastAlerta('Erro ao apagar a Postagem', 'erro')
         }
 
         setIsLoading(false)
         retornar()
     }
+
+    function retornar() {
+        navigate("/postagens")
+    }
+
+
     return (
         <div className='container w-1/3 mx-auto'>
             <h1 className='text-4xl text-center my-4'>Deletar postagem</h1>

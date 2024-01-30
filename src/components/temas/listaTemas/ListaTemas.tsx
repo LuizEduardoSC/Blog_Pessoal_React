@@ -5,6 +5,8 @@ import { AuthContext } from "../../../contexts/AuthContext";
 import Tema from "../../../models/Tema";
 import { buscar } from "../../../services/Service";
 import CardTemas from "../cardTemas/CardTemas";
+import { ToastAlerta } from "../../../utils/ToastAlerts";
+
 
 function ListaTemas() {
 
@@ -22,16 +24,16 @@ function ListaTemas() {
             })
         } catch (error: any) {
             if (error.toString().includes('403')) {
-                alert('O token Expirou!')
-                handleLogout
+                ToastAlerta('O token Expirou!', '')
+                handleLogout()
             }
         }
     }
 
     useEffect(() => {
         if (token === '') {
-            alert('Você precisa estar logado!')
-            navigate('/login')
+            ToastAlerta('Você precisa estar logado!', '')
+            navigate('/')
         }
     }, [token])
 
@@ -51,7 +53,6 @@ function ListaTemas() {
                     wrapperClass="dna-wrapper mx-auto"
                 />
             )}
-
             <div className="flex justify-center w-full my-4">
                 <div className="container flex flex-col">
                     <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
@@ -60,14 +61,13 @@ function ListaTemas() {
                                 <>
                                     <CardTemas key={tema.id} tema={tema} />
                                 </>
-                            ))
-                            }
+                            ))}
                         </>
                     </div>
                 </div>
             </div>
         </>
-    );
+    )
 }
 
 export default ListaTemas;

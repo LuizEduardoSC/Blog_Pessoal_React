@@ -1,8 +1,6 @@
-import FormularioPostagem from '../formPostagem/FormPostagem';
-
 import Popup from 'reactjs-popup';
 import 'reactjs-popup/dist/index.css';
-
+import FormPostagem from '../formPostagem/FormPostagem';
 import './ModalPostagem.css';
 
 function ModalPostagem() {
@@ -17,7 +15,7 @@ function ModalPostagem() {
                 } modal>
                 <div>
                     {/* Conteúdo do Modal, no caso o Formulario de Postagem */}
-                    <FormularioPostagem />
+                    <FormPostagem />
                 </div>
             </Popup>
         </>
