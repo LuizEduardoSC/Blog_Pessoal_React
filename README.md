@@ -1,1 +1,4 @@
+
+# Projeto - Blog Pessoal
+
 Neste projeto, foi desenvolvido uma API RESTful usando Spring Boot, JPA e MySQL. A API permite o gerenciamento de usuários, produtos e pedidos, seguindo os princípios da programação orientada a objetos. Foram utilizados métodos Get e Set para acessar e modificar os atributos das classes, e implementar relacionamentos entre elas, como um-para-muitos e muitos-para-muitos. Para garantir a segurança da API, foi utilizado o Spring Security com autenticação JWT, que gera tokens para os usuários registrados. Também foram realizados testes no Insomnia para verificar o funcionamento dos endpoints e a validação dos dados. Além disso, foi documentada a API usando o SpringDoc, Swagger e OpenApi, que geram uma interface gráfica com as informações sobre os recursos e os parâmetros. Por fim, foi feito o deploy da API no Render, e utilizado o Git e o GitHub para o controle de versão do código.
