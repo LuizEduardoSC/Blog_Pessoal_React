@@ -68,7 +68,7 @@ function FormPostagem() {
             ToastAlerta('Você precisa estar logado', "");
             navigate('/');
         }
-    }, [token, navigate])
+    }, [token])
 
     useEffect(() => {
         buscarTemas()
@@ -76,7 +76,7 @@ function FormPostagem() {
         if (id !== undefined) {
             buscarPostagemPorId(id)
         }
-    }, [id, token]) // Added token as dependency to ensure themes are fetched after login
+    }, [id])
 
     useEffect(() => {
         setPostagem({
@@ -102,27 +102,9 @@ function FormPostagem() {
         e.preventDefault()
         setIsLoading(true)
 
-        const postagemLimpa = {
-            ...postagem,
-            id: id ? parseInt(id) : 0,
-            tema: tema,
-            usuario: {
-                id: usuario.id,
-                nome: usuario.nome,
-                usuario: usuario.usuario,
-                senha: usuario.senha,
-                foto: usuario.foto
-            }
-        }
-
-        // Remove o campo data se estiver vazio para que o backend o gerencie
-        if (!postagemLimpa.data) {
-            delete (postagemLimpa as any).data
-        }
-
         if (id != undefined) {
             try {
-                await atualizar(`/postagens`, postagemLimpa, setPostagem, {
+                await atualizar(`/postagens`, postagem, setPostagem, {
                     headers: {
                         Authorization: token,
                     },
@@ -141,7 +123,7 @@ function FormPostagem() {
 
         } else {
             try {
-                await cadastrar(`/postagens`, postagemLimpa, setPostagem, {
+                await cadastrar(`/postagens`, postagem, setPostagem, {
                     headers: {
                         Authorization: token,
                     },
