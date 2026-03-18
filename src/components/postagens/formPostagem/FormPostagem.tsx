@@ -117,7 +117,8 @@ function FormPostagem() {
                     ToastAlerta('O token expirou, favor logar novamente', "erro")
                     handleLogout()
                 } else {
-                    ToastAlerta('Erro ao atualizar a Postagem', "erro")
+                    const mensagem = error.response?.data?.message || 'Erro ao atualizar a Postagem';
+                    ToastAlerta(mensagem, "erro");
                 }
             }
 
@@ -136,7 +137,8 @@ function FormPostagem() {
                     ToastAlerta('O token expirou, favor logar novamente', "erro")
                     handleLogout()
                 } else {
-                    ToastAlerta('Erro ao cadastrar a Postagem', "erro");
+                    const mensagem = error.response?.data?.message || 'Erro ao cadastrar a Postagem';
+                    ToastAlerta(mensagem, "erro");
                 }
             }
         }
@@ -171,6 +173,7 @@ function FormPostagem() {
                         placeholder="Texto"
                         name="texto"
                         required
+                        minLength={3}
                         className="border-2 border-slate-700 rounded p-2"
                         value={postagem.texto}
                         onChange={(e: ChangeEvent<HTMLInputElement>) => atualizarEstado(e)}
@@ -181,12 +184,11 @@ function FormPostagem() {
                     <select name="tema" id="tema"
                         className='border p-2 border-slate-800 rounded'
                         onChange={(e) => buscarTemaPorId(e.currentTarget.value)}
+                        value={tema.id !== 0 ? tema.id : ''}
                     >
-                        <option value="" selected disabled>Selecione um Tema</option>
+                        <option value="" disabled>Selecione um Tema</option>
                         {temas.map((tema) => (
-                            <>
-                                <option value={tema.id} >{tema.descricao}</option>
-                            </>
+                            <option key={tema.id} value={tema.id} >{tema.descricao}</option>
                         ))}
                     </select>
                 </div>
