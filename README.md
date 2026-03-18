@@ -7,6 +7,7 @@ Este é o projeto frontend de um **Blog Pessoal**, desenvolvido com as tecnologi
 ## 🚀 O que o projeto faz?
 
 O sistema funciona como uma plataforma de blog completa, onde é possível:
+
 - **Autenticação Segura:** Cadastro e login de usuários com persistência de sessão (JWT).
 - **Gestão de Temas:** Visualização, criação, edição e exclusão de categorias (temas) para as postagens.
 - **Gestão de Postagens:** Criação de conteúdos vinculados a temas específicos, com suporte a edição e remoção.
@@ -33,6 +34,7 @@ Este projeto foi construído utilizando as seguintes ferramentas:
 ## 📦 Como instalar e rodar
 
 ### Pré-requisitos
+
 - **Node.js** instalado (versão LTS recomendada).
 - **Gerenciador de pacotes** (NPM ou Yarn).
 - **Backend Rodando:** Este frontend necessita de uma API backend compatível.
@@ -40,12 +42,14 @@ Este projeto foi construído utilizando as seguintes ferramentas:
 ### Passos para Instalação
 
 1.  **Clone o repositório:**
+
     ```bash
     git clone https://github.com/LuizEduardoSC/Blog_Pessoal_React.git
     cd Blog_Pessoal_React
     ```
 
 2.  **Instale as dependências:**
+
     ```bash
     npm install
     # ou
@@ -54,6 +58,7 @@ Este projeto foi construído utilizando as seguintes ferramentas:
 
 3.  **Configuração de Ambiente:**
     Crie um arquivo `.env` na raiz do projeto e configure a URL da sua API:
+
     ```env
     VITE_API_URL=http://localhost:8080
     ```
@@ -82,9 +87,8 @@ src/
 
 ---
 
-## 📄 Licença
+_Desenvolvido com ❤️ como parte do aprendizado em desenvolvimento Web Full Stack._
 
-Este projeto está sob a licença MIT. Veja o arquivo [LICENSE](LICENSE) para mais detalhes.
+# ✒️ Autores
 
----
-*Desenvolvido com ❤️ como parte do aprendizado em desenvolvimento Web Full Stack.*
+- **Luiz Eduardo** - [LinkedIn](https://www.linkedin.com/in/luiz-eduardosc/)
