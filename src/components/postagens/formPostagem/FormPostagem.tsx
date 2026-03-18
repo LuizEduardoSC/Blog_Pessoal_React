@@ -104,7 +104,10 @@ function FormPostagem() {
 
         if (id != undefined) {
             try {
-                await atualizar(`/postagens`, postagem, setPostagem, {
+                await atualizar(`/postagens`, {
+                    ...postagem,
+                    usuario: { ...usuario, token: '' }
+                }, setPostagem, {
                     headers: {
                         Authorization: token,
                     },
@@ -123,7 +126,11 @@ function FormPostagem() {
 
         } else {
             try {
-                await cadastrar(`/postagens`, postagem, setPostagem, {
+                await cadastrar(`/postagens`, {
+                    ...postagem,
+                    id: 0,
+                    usuario: { ...usuario, token: '' }
+                }, setPostagem, {
                     headers: {
                         Authorization: token,
                     },
