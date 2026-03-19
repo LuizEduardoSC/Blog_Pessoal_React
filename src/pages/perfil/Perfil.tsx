@@ -4,6 +4,7 @@ import { AuthContext } from '../../contexts/AuthContext'
 import { ToastAlerta } from '../../utils/ToastAlerts'
 import { PencilSimple, UserCircle } from '@phosphor-icons/react'
 import { motion } from 'framer-motion'
+import Dashboard from '../../components/perfil/dashboard/Dashboard'
 
 function Perfil() {
     const navigate = useNavigate()
@@ -96,6 +97,8 @@ function Perfil() {
                             </div>
                         </div>
                     </div>
+
+                    <Dashboard />
                 </div>
             </motion.div>
         </div>
