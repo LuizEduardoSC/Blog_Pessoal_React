@@ -10,7 +10,9 @@ O sistema funciona como uma plataforma de blog completa, onde é possível:
 
 - **Autenticação Segura:** Cadastro e login de usuários com persistência de sessão (JWT).
 - **Modo Escuro (Dark Mode):** Suporte completo a temas claro e escuro, com troca dinâmica e persistência da preferência do usuário (Context API + Tailwind).
-- **Responsividade Total:** Interface adaptável para dispositivos móveis, tablets e desktop com menu "Hambúrguer". (Mobile-First).
+- **Responsividade Total:** Interface adaptável para dispositivos móveis, tablets e desktop com menu "Hambúrguer" (Mobile-First).
+- **Animações Fluídas:** Transições suaves entre páginas e efeitos de entrada/hover nos cards com Framer Motion.
+- **Busca em Tempo Real:** Filtro de postagens e temas enquanto você digita, com feedback visual para resultados vazios.
 - **Gestão de Temas:** Visualização, criação, edição e exclusão de categorias (temas) para as postagens.
 - **Gestão de Postagens:** Criação de conteúdos vinculados a temas específicos, com suporte a edição e remoção.
 - **Perfil do Usuário:** Espaço dedicado para exibir as informações do autor logado.
@@ -26,6 +28,7 @@ Este projeto foi construído utilizando as seguintes ferramentas:
 - **[TypeScript](https://www.typescriptlang.org/):** Adiciona tipagem estática ao JavaScript, garantindo maior segurança e produtividade.
 - **[Vite](https://vitejs.dev/):** Ferramenta de build extremamente rápida para o desenvolvimento web moderno.
 - **[Tailwind CSS](https://tailwindcss.com/):** Framework CSS utilitário para um design moderno e responsivo.
+- **[Framer Motion](https://www.framer.com/motion/):** Biblioteca de animações para React — transições de página e micro-interações nos cards.
 - **[React Router DOM](https://reactrouter.com/):** Gerenciamento de rotas e navegação da aplicação.
 - **[Axios](https://axios-http.com/):** Cliente HTTP para consumo da API Backend.
 - **[Phosphor Icons](https://phosphoricons.com/):** Biblioteca de ícones flexível e consistente.
