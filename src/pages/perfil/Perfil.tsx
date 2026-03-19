@@ -43,6 +43,8 @@ function Perfil() {
                                     <UserCircle size={100} className='text-slate-400' />
                                 </div>
                             )}
+                            {/* Online Status Dot */}
+                            <span className="absolute bottom-3 right-3 block h-6 w-6 rounded-full bg-green-500 ring-4 ring-white dark:ring-slate-900 border-2 border-white animate-pulse"></span>
                         </div>
 
                         <div className='flex-1 mb-2'>

@@ -41,11 +41,14 @@ function Navbar() {
                         <Link to="/temas" className="hover:text-indigo-200 transition-colors">Temas</Link>
                         <Link to="/cadastrartema" className="hover:text-indigo-200 transition-colors">Novo Tema</Link>
                         <Link to="/perfil" className="hover:text-indigo-200 transition-colors flex items-center gap-2">
-                            {usuario.foto ? (
-                                <img src={usuario.foto} alt={usuario.nome} className="w-8 h-8 rounded-full object-cover border border-white/50" />
-                            ) : (
-                                <UserCircle size={24} />
-                            )}
+                            <div className="relative">
+                                {usuario.foto ? (
+                                    <img src={usuario.foto} alt={usuario.nome} className="w-8 h-8 rounded-full object-cover border border-white/50" />
+                                ) : (
+                                    <UserCircle size={24} />
+                                )}
+                                <span className="absolute bottom-0 right-0 block h-2.5 w-2.5 rounded-full bg-green-500 ring-2 ring-indigo-900 border border-white animate-pulse"></span>
+                            </div>
                             Perfil
                         </Link>
                         <Link to="" onClick={logout} className="hover:text-red-300 transition-colors font-bold">Sair</Link>
@@ -77,11 +80,14 @@ function Navbar() {
                         <Link to="/temas" onClick={() => setIsMenuOpen(false)} className="hover:bg-white/10 py-2 rounded-lg transition-colors">Temas</Link>
                         <Link to="/cadastrartema" onClick={() => setIsMenuOpen(false)} className="hover:bg-white/10 py-2 rounded-lg transition-colors">Novo Tema</Link>
                         <Link to="/perfil" onClick={() => setIsMenuOpen(false)} className="hover:bg-white/10 py-2 rounded-lg transition-colors flex items-center justify-center gap-2">
-                            {usuario.foto ? (
-                                <img src={usuario.foto} alt={usuario.nome} className="w-8 h-8 rounded-full object-cover border border-white/50" />
-                            ) : (
-                                <UserCircle size={24} />
-                            )}
+                            <div className="relative">
+                                {usuario.foto ? (
+                                    <img src={usuario.foto} alt={usuario.nome} className="w-8 h-8 rounded-full object-cover border border-white/50" />
+                                ) : (
+                                    <UserCircle size={24} />
+                                )}
+                                <span className="absolute bottom-0 right-0 block h-2.5 w-2.5 rounded-full bg-green-500 ring-2 ring-indigo-900 border border-white animate-pulse"></span>
+                            </div>
                             Perfil
                         </Link>
                         <Link to="" onClick={logout} className="text-red-400 py-2 rounded-lg hover:bg-red-500/10 transition-colors">Sair</Link>
