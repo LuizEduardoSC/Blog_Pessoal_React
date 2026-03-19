@@ -1,10 +1,10 @@
 import { useContext, useEffect, useState, useCallback } from "react";
-import { DNA } from "react-loader-spinner";
 import { AuthContext } from "../../../contexts/AuthContext";
 import Postagem from "../../../models/Postagem";
 import { buscar } from "../../../services/Service";
 import { ToastAlerta } from "../../../utils/ToastAlerts";
 import CardPostagem from "../cardPostagem/CardPostagem";
+import SkeletonCardPostagem from "../skeletonCardPostagem/SkeletonCardPostagem";
 import { useNavigate } from "react-router-dom";
 import { MagnifyingGlass } from "@phosphor-icons/react";
 
@@ -14,24 +14,26 @@ function ListaPostagens() {
 
     const [postagens, setPostagens] = useState<Postagem[]>([]);
     const [searchTerm, setSearchTerm] = useState("");
+    const [isLoading, setIsLoading] = useState(true);
 
     const { usuario, handleLogout } = useContext(AuthContext);
     const token = usuario.token;
 
     const buscarPostagens = useCallback(async () => {
+        setIsLoading(true);
         try {
             await buscar('/postagens', setPostagens, {
                 headers: {
                     Authorization: token,
                 },
-            })
-
+            });
         } catch (error) {
             if (error?.toString().includes('403')) {
-                ToastAlerta('O token expirou, favor logar novamente', "erro")
-                handleLogout()
+                ToastAlerta('O token expirou, favor logar novamente', "erro");
+                handleLogout();
             }
         }
+        setIsLoading(false);
     }, [token, handleLogout]);
 
     useEffect(() => {
@@ -68,16 +70,11 @@ function ListaPostagens() {
                 </div>
             </div>
 
-            {postagens.length === 0 && (
-                <div className="flex justify-center items-center h-60">
-                    <DNA
-                        visible={true}
-                        height="200"
-                        width="200"
-                        ariaLabel="dna-loading"
-                        wrapperStyle={{}}
-                        wrapperClass="dna-wrapper"
-                    />
+            {isLoading && (
+                <div className='container mx-auto my-4 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 px-4'>
+                    {Array.from({ length: 6 }).map((_, i) => (
+                        <SkeletonCardPostagem key={i} />
+                    ))}
                 </div>
             )}
 
