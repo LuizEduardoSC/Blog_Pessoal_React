@@ -1,11 +1,11 @@
 import { useCallback, useContext, useEffect, useState } from 'react';
 import { useNavigate, useParams, Link } from 'react-router-dom';
 import { motion } from 'framer-motion';
-import { ArrowLeft } from '@phosphor-icons/react';
+import { ArrowLeft, Heart } from '@phosphor-icons/react';
 import { RotatingLines } from 'react-loader-spinner';
 import { AuthContext } from '../../contexts/AuthContext';
 import Postagem from '../../models/Postagem';
-import { buscar } from '../../services/Service';
+import { buscar, atualizar } from '../../services/Service';
 import { ToastAlerta } from '../../utils/ToastAlerts';
 import ListaComentarios from '../../components/comentarios/listaComentarios/ListaComentarios';
 
@@ -18,6 +18,22 @@ function PostagemDetalhe() {
 
     const [postagem, setPostagem] = useState<Postagem>({} as Postagem);
     const [isLoading, setIsLoading] = useState(true);
+    const [isLiked, setIsLiked] = useState(false);
+
+    async function curtirPostagem() {
+        const novoLike = (postagem.curtir || 0) + 1;
+        setPostagem({ ...postagem, curtir: novoLike });
+        setIsLiked(true);
+
+        try {
+            await atualizar(`/postagens`, { ...postagem, curtir: novoLike }, () => {}, {
+                headers: { Authorization: token },
+            });
+        } catch (error) {
+            console.error("Erro ao curtir postagem:", error);
+            setIsLiked(false);
+        }
+    }
 
     const buscarPostagem = useCallback(async (postagemId: string) => {
         setIsLoading(true);
@@ -94,9 +110,23 @@ function PostagemDetalhe() {
                         </span>
                     </div>
 
-                    <h1 className="text-3xl font-bold uppercase mb-4 dark:text-slate-100 leading-snug">
-                        {postagem.titulo}
-                    </h1>
+                    <div className="flex justify-between items-center mb-4">
+                        <h1 className="text-3xl font-bold uppercase dark:text-slate-100 leading-snug">
+                            {postagem.titulo}
+                        </h1>
+                        <button 
+                            onClick={curtirPostagem}
+                            className="flex items-center gap-2 px-4 py-2 rounded-xl bg-pink-50 dark:bg-pink-900/20 text-pink-600 dark:text-pink-400 font-bold transition-all hover:scale-105 active:scale-95 shadow-sm"
+                        >
+                            <motion.div
+                                animate={isLiked ? { scale: [1, 1.4, 1] } : {}}
+                                transition={{ duration: 0.3 }}
+                            >
+                                <Heart size={24} weight={isLiked ? "fill" : "bold"} />
+                            </motion.div>
+                            {postagem.curtir || 0}
+                        </button>
+                    </div>
 
                     <div 
                         className="text-slate-700 dark:text-slate-300 leading-relaxed text-base quill-content"

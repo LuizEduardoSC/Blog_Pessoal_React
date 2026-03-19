@@ -1,12 +1,39 @@
 import { Link } from 'react-router-dom'
 import Postagem from '../../../models/Postagem'
 import { motion } from 'framer-motion'
+import { Heart } from '@phosphor-icons/react'
+import { useContext, useState } from 'react'
+import { AuthContext } from '../../../contexts/AuthContext'
+import { atualizar } from '../../../services/Service'
 
 interface CardPostagensProps {
     postagem: Postagem
 }
 
 function CardPostagem({ postagem }: CardPostagensProps) {
+    const { usuario } = useContext(AuthContext);
+    const token = usuario.token;
+
+    const [likes, setLikes] = useState(postagem.curtir || 0);
+    const [isLiked, setIsLiked] = useState(false);
+
+    async function curtirPostagem() {
+        const novoLike = likes + 1;
+        setLikes(novoLike);
+        setIsLiked(true);
+
+        try {
+            await atualizar(`/postagens`, { ...postagem, curtir: novoLike }, () => {}, {
+                headers: { Authorization: token },
+            });
+        } catch (error) {
+            console.error("Erro ao curtir postagem:", error);
+            // Reverter em caso de erro
+            setLikes(likes);
+            setIsLiked(false);
+        }
+    }
+
     return (
         <motion.div 
             initial={{ opacity: 0, y: 20 }}
@@ -46,6 +73,18 @@ function CardPostagem({ postagem }: CardPostagensProps) {
                     className='w-full text-indigo-700 dark:text-indigo-300 bg-indigo-50 hover:bg-indigo-100 dark:bg-slate-700 dark:hover:bg-slate-600 flex items-center justify-center py-3 transition-colors font-bold text-sm'>
                     💬 Ver Post
                 </Link>
+                <button 
+                    onClick={curtirPostagem}
+                    className='w-full text-pink-600 dark:text-pink-400 bg-pink-50 hover:bg-pink-100 dark:bg-slate-700 dark:hover:bg-pink-900/20 flex items-center justify-center gap-2 py-3 transition-colors font-bold text-sm'
+                >
+                    <motion.div
+                        animate={isLiked ? { scale: [1, 1.4, 1] } : {}}
+                        transition={{ duration: 0.3 }}
+                    >
+                        <Heart size={20} weight={isLiked ? "fill" : "bold"} className={isLiked ? "text-pink-500" : ""} />
+                    </motion.div>
+                    {likes}
+                </button>
                 <Link to={`/editarpostagem/${postagem.id}`}
                     className='w-full text-white bg-indigo-500 hover:bg-indigo-700 dark:bg-indigo-600 dark:hover:bg-indigo-500 flex items-center justify-center py-3 transition-colors font-bold text-sm'>
                     Editar
