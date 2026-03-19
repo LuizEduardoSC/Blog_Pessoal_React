@@ -1,4 +1,4 @@
-import { useContext, useEffect, useState } from "react";
+import { useContext, useEffect, useState, useCallback } from "react";
 import { DNA } from "react-loader-spinner";
 import { useNavigate } from "react-router-dom";
 import { AuthContext } from "../../../contexts/AuthContext";
@@ -17,29 +17,29 @@ function ListaTemas() {
     const { usuario, handleLogout } = useContext(AuthContext)
     const token = usuario.token
 
-    async function buscarTemas() {
+    const buscarTemas = useCallback(async () => {
         try {
             await buscar('/temas', setTemas, {
                 headers: { Authorization: token }
             })
-        } catch (error: any) {
-            if (error.toString().includes('403')) {
-                ToastAlerta('O token Expirou!', '')
+        } catch (error) {
+            if (error?.toString().includes('403')) {
+                ToastAlerta('O token Expirou!', "erro")
                 handleLogout()
             }
         }
-    }
+    }, [token, handleLogout]);
 
     useEffect(() => {
         if (token === '') {
-            ToastAlerta('Você precisa estar logado!', '')
+            ToastAlerta('Você precisa estar logado!', "")
             navigate('/')
         }
-    }, [token])
+    }, [token, navigate])
 
     useEffect(() => {
         buscarTemas()
-    }, [temas.length])
+    }, [temas.length, buscarTemas])
 
     return (
         <>

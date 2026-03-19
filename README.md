@@ -10,6 +10,7 @@ O sistema funciona como uma plataforma de blog completa, onde é possível:
 
 - **Autenticação Segura:** Cadastro e login de usuários com persistência de sessão (JWT).
 - **Modo Escuro (Dark Mode):** Suporte completo a temas claro e escuro, com troca dinâmica e persistência da preferência do usuário (Context API + Tailwind).
+- **Responsividade Total:** Interface adaptável para dispositivos móveis, tablets e desktop com menu "Hambúrguer". (Mobile-First).
 - **Gestão de Temas:** Visualização, criação, edição e exclusão de categorias (temas) para as postagens.
 - **Gestão de Postagens:** Criação de conteúdos vinculados a temas específicos, com suporte a edição e remoção.
 - **Perfil do Usuário:** Espaço dedicado para exibir as informações do autor logado.

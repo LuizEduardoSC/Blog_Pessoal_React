@@ -1,4 +1,4 @@
-import { useContext, useEffect, useState } from "react";
+import { useContext, useEffect, useState, useCallback } from "react";
 import { RotatingLines } from "react-loader-spinner";
 import { useNavigate, useParams } from "react-router-dom";
 import { AuthContext } from "../../../contexts/AuthContext";
@@ -18,31 +18,31 @@ function DeletarTema() {
 
     const { id } = useParams<{ id: string }>();
 
-    async function buscarPorId(id: string) {
+    const buscarPorId = useCallback(async (id: string) => {
         try {
             await buscar(`/temas/${id}`, setTema, {
                 headers: { Authorization: token }
             })
-        } catch (error: any) {
-            if (error.toString().includes('403')) {
+        } catch (error) {
+            if (error?.toString().includes('403')) {
                 ToastAlerta('O token Expirou!', "erro")
                 handleLogout()
             }
         }
-    }
+    }, [token, handleLogout]);
 
     useEffect(() => {
         if (token === '') {
             ToastAlerta('Você precisa estar logado!', "")
             navigate('/')
         }
-    }, [token])
+    }, [token, navigate])
 
     useEffect(() => {
         if (id !== undefined) {
             buscarPorId(id)
         }
-    }, [id])
+    }, [id, buscarPorId])
 
     function retornar() {
         navigate("/temas")
@@ -57,8 +57,8 @@ function DeletarTema() {
                 headers: { 'Authorization': token }
             })
             ToastAlerta('O Tema foi excluído com sucesso!', "sucesso")
-        } catch (error: any) {
-            if (error.toString().includes('403')) {
+        } catch (error) {
+            if (error?.toString().includes('403')) {
                 ToastAlerta('O Token Expirou!', "erro")
                 handleLogout();
             } else {
@@ -72,7 +72,7 @@ function DeletarTema() {
     }
 
     return (
-        <div className='container w-1/3 mx-auto transition-colors duration-300'>
+        <div className='container w-full px-4 lg:w-1/3 mx-auto transition-colors duration-300'>
             <h1 className='text-4xl text-center my-4 dark:text-slate-100'>Deletar tema</h1>
             <p className='text-center font-semibold mb-4 dark:text-slate-300'>
                 Você tem certeza de que deseja apagar o tema a seguir?</p>

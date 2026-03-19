@@ -132,11 +132,11 @@ function FormPostagem() {
                 ToastAlerta('Postagem atualizada com sucesso', "sucesso")
 
             } catch (error) {
-                if ((error as any).toString().includes('403')) {
+                if (error?.toString().includes('403')) {
                     ToastAlerta('O token expirou, favor logar novamente', "erro")
                     handleLogout()
                 } else {
-                    const message = (error as any).response?.data?.message || 'Erro ao atualizar a Postagem';
+                    const message = (error as { response?: { data?: { message?: string } } }).response?.data?.message || 'Erro ao atualizar a Postagem';
                     ToastAlerta(message, "erro");
                 }
             }
@@ -150,11 +150,11 @@ function FormPostagem() {
                 ToastAlerta('Postagem cadastrada com sucesso', "sucesso")
 
             } catch (error) {
-                if ((error as any).toString().includes('403')) {
+                if (error?.toString().includes('403')) {
                     ToastAlerta('O token expirou, favor logar novamente', "erro")
                     handleLogout()
                 } else {
-                    const message = (error as any).response?.data?.message || 'Erro ao cadastrar a Postagem';
+                    const message = (error as { response?: { data?: { message?: string } } }).response?.data?.message || 'Erro ao cadastrar a Postagem';
                     ToastAlerta(message, "erro");
                 }
             }
@@ -170,7 +170,7 @@ function FormPostagem() {
                 {id !== undefined ? 'Editar Postagem' : 'Cadastrar Postagem'}
             </h1>
 
-            <form className="flex flex-col w-1/2 gap-4" onSubmit={gerarNovaPostagem}>
+            <form className="flex flex-col w-full px-4 lg:w-1/2 gap-4" onSubmit={gerarNovaPostagem}>
                 <div className="flex flex-col gap-2">
                     <label htmlFor="titulo" className="dark:text-slate-100">Título da Postagem</label>
                     <input

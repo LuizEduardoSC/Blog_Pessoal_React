@@ -1,4 +1,4 @@
-import { useContext, useEffect, useState } from 'react'
+import { useContext, useEffect, useState, useCallback } from 'react'
 import { RotatingLines } from 'react-loader-spinner'
 import { useNavigate, useParams } from 'react-router-dom'
 import { AuthContext } from '../../../contexts/AuthContext'
@@ -25,20 +25,20 @@ function DeletarPostagem() {
     const token = usuario.token
 
     // Função que vai chamada a service de Buscar para buscarmos uma Postagem em Especifico
-    async function buscarPorId(id: string) {
+    const buscarPorId = useCallback(async (id: string) => {
         try {
-            await buscar(`/postagens/${id}`, setPostagem, { // Aqui, na URL de Requisição, passamos o ID da Postagem a ser Buscado
+            await buscar(`/postagens/${id}`, setPostagem, { 
                 headers: {
-                    'Authorization': token                  // Passando um token pelo atributo Authorization
+                    'Authorization': token
                 }
             })
-        } catch (error: any) {
-            if (error.toString().includes('403')) {                 // Verifica se o erro é o 403 - Proibido que indica que o Token Expirou
-                ToastAlerta('O token expirou, favor logar novamente', '')     // Avisa ao usuário que deu ruim
-                handleLogout()                                      // Chama a função para deslogar o usuário
+        } catch (error) {
+            if (error?.toString().includes('403')) {
+                ToastAlerta('O token expirou, favor logar novamente', '')
+                handleLogout()
             }
         }
-    }
+    }, [token, handleLogout]);
 
     // Função de Efeito Colateral - Sempre que a variavel token, tiver o seu valor alterado
     // uma função  é disparada, essa função verifica se o token é IDÊNTICO a "", se sim, isso indica que o usuário NÃO ESTÁ LOGADO.
@@ -48,16 +48,16 @@ function DeletarPostagem() {
             ToastAlerta('Você precisa estar logado', '')
             navigate('/login')
         }
-    }, [token])
+    }, [token, navigate])
 
     // Função de Efeito Colateral - Sempre que o ID for montado pelo React dentro do Componente,
     //  uma função é disparada, iremos verificar se o ID é diferente de undefined, se sim, quer dizer que iremos atualizar uma Postagem, 
     // por isso, precisamos chamar a função que irá fazer uma requisição ao back para carregar os dados da Postagem em tela
     useEffect(() => {
         if (id !== undefined) {
-            buscarPorId(id)     // esse ID, é o que vem pela a URL da rota do Front End
+            buscarPorId(id)     
         }
-    }, [id])
+    }, [id, buscarPorId])
 
     // Função assincrona que vai deletar a Postagem
     async function deletarPostagem() {
@@ -86,7 +86,7 @@ function DeletarPostagem() {
 
 
     return (
-        <div className='container w-1/3 mx-auto transition-colors duration-300'>
+        <div className='container w-full px-4 lg:w-1/3 mx-auto transition-colors duration-300'>
             <h1 className='text-4xl text-center my-4 dark:text-slate-100'>Deletar postagem</h1>
 
             <p className='text-center font-semibold mb-4 dark:text-slate-300'>Você tem certeza de que deseja apagar a postagem a seguir?</p>

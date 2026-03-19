@@ -1,4 +1,4 @@
-import { useContext, useEffect, useState } from "react";
+import { useContext, useEffect, useState, useCallback } from "react";
 import { DNA } from "react-loader-spinner";
 import { AuthContext } from "../../../contexts/AuthContext";
 import Postagem from "../../../models/Postagem";
@@ -16,7 +16,7 @@ function ListaPostagens() {
     const { usuario, handleLogout } = useContext(AuthContext);
     const token = usuario.token;
 
-    async function buscarPostagens() {
+    const buscarPostagens = useCallback(async () => {
         try {
             await buscar('/postagens', setPostagens, {
                 headers: {
@@ -24,24 +24,24 @@ function ListaPostagens() {
                 },
             })
 
-        } catch (error: any) {
-            if (error.toString().includes('403')) {
+        } catch (error) {
+            if (error?.toString().includes('403')) {
                 ToastAlerta('O token expirou, favor logar novamente', "erro")
                 handleLogout()
             }
         }
-    }
+    }, [token, handleLogout]);
 
     useEffect(() => {
         if (token === '') {
             ToastAlerta('Você precisa estar logado', "")
             navigate('/');
         }
-    }, [token])
+    }, [token, navigate])
 
     useEffect(() => {
         buscarPostagens()
-    }, [postagens.length])
+    }, [postagens.length, buscarPostagens])
 
     return (
         <>

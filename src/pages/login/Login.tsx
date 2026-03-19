@@ -52,7 +52,7 @@ function Login() {
                     {theme === 'light' ? <Moon size={28} weight="fill" /> : <Sun size={28} weight="fill" />}
                 </button>
 
-                <form className="flex justify-center items-center flex-col w-1/2 gap-4 transition-colors duration-300"
+                <form className="flex justify-center items-center flex-col w-full px-10 lg:w-1/2 gap-4 transition-colors duration-300"
                     onSubmit={login}>
                     <h2 className={`text-5xl ${theme === 'dark' ? 'text-slate-100' : 'text-white'}`}>Entrar</h2>
                     <div className="flex flex-col w-full">
@@ -79,7 +79,7 @@ function Login() {
                             onChange={(e: ChangeEvent<HTMLInputElement>) => atualizarEstado(e)}
                         />
                     </div>
-                    <button type='submit' className="rounded bg-indigo-400 hover:bg-indigo-900 dark:bg-indigo-600 dark:hover:bg-indigo-500 text-white w-1/2 py-2 flex justify-center transition-colors">
+                    <button type='submit' className="rounded bg-indigo-400 hover:bg-indigo-900 dark:bg-indigo-600 dark:hover:bg-indigo-500 text-white w-full lg:w-1/2 py-2 flex justify-center transition-colors shadow-lg active:scale-95">
                         {isLoading ? <RotatingLines
                             strokeColor="white"
                             strokeWidth="5"

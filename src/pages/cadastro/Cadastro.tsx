@@ -93,7 +93,7 @@ function Cadastro() {
 
                 ToastAlerta('Usuario cadastrado com sucesso!', "sucesso")    // Avisa ao usuário que deu bom
             } catch (error) {
-                const message = (error as any).response?.data?.message || 'Erro ao cadastrar o usuario!';
+                const message = (error as { response?: { data?: { message?: string } } }).response?.data?.message || 'Erro ao cadastrar o usuario!';
                 ToastAlerta(message, "erro")    // Avisa ao usuário que deu erro
             }
         } else {
@@ -118,8 +118,8 @@ function Cadastro() {
                 </button>
 
                 <div className="fundoCadastro hidden lg:block"></div>
-                <form className='flex justify-center items-center flex-col w-2/3 gap-3 transition-colors duration-300'
-                    onSubmit={cadastrarNovoUsuario}  // onSubmit é o evento que dispara a função de cadastro quando o usuário clica em cadastrar 
+                <form className='flex justify-center items-center flex-col w-full px-10 lg:w-2/3 gap-3 transition-colors duration-300'
+                    onSubmit={cadastrarNovoUsuario}  
                     >    
 
                     <h2 className={`text-5xl ${theme === 'dark' ? 'text-slate-100' : 'text-white'}`}>Cadastrar</h2>
