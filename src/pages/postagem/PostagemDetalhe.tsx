@@ -98,9 +98,10 @@ function PostagemDetalhe() {
                         {postagem.titulo}
                     </h1>
 
-                    <p className="text-slate-700 dark:text-slate-300 leading-relaxed whitespace-pre-wrap text-base">
-                        {postagem.texto}
-                    </p>
+                    <div 
+                        className="text-slate-700 dark:text-slate-300 leading-relaxed text-base quill-content"
+                        dangerouslySetInnerHTML={{ __html: postagem.texto }} 
+                    />
                 </div>
 
                 {/* Ações */}

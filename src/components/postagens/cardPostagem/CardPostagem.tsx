@@ -23,7 +23,9 @@ function CardPostagem({ postagem }: CardPostagensProps) {
                 </div>
                 <div className='p-6 '>
                     <h4 className='text-xl font-bold uppercase mb-2 dark:text-slate-100'>{postagem.titulo}</h4>
-                    <p className='text-slate-700 dark:text-slate-300 mb-4 line-clamp-3'>{postagem.texto}</p>
+                    <p className='text-slate-700 dark:text-slate-300 mb-4 line-clamp-3'>
+                        {postagem.texto.replace(/<[^>]*>/g, '')}
+                    </p>
                     
                     <div className='flex items-center gap-2 mb-2'>
                         <span className='px-2 py-1 bg-indigo-100 dark:bg-indigo-900 text-indigo-800 dark:text-indigo-200 text-xs font-bold rounded uppercase'>

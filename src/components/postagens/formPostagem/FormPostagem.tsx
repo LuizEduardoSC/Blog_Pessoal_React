@@ -1,4 +1,3 @@
-
 import { ChangeEvent, useCallback, useContext, useEffect, useState } from 'react';
 import { useNavigate, useParams } from 'react-router-dom';
 import { AuthContext } from '../../../contexts/AuthContext';
@@ -7,6 +6,9 @@ import Tema from '../../../models/Tema';
 import { buscar, atualizar, cadastrar } from '../../../services/Service';
 import { RotatingLines } from 'react-loader-spinner';
 import { ToastAlerta } from '../../../utils/ToastAlerts';
+
+import ReactQuill from 'react-quill';
+import 'react-quill/dist/quill.snow.css';
 
 
 function FormPostagem() {
@@ -96,10 +98,19 @@ function FormPostagem() {
         });
     }, [tema, postagem]);
 
-    function atualizarEstado(e: ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) {
+    function atualizarEstado(e: ChangeEvent<HTMLInputElement>) {
         setPostagem({
             ...postagem,
             [e.target.name]: e.target.value,
+            tema: tema,
+            usuario: usuario,
+        });
+    }
+
+    function handleTextoChange(value: string) {
+        setPostagem({
+            ...postagem,
+            texto: value,
             tema: tema,
             usuario: usuario,
         });
@@ -165,17 +176,24 @@ function FormPostagem() {
                     />
                 </div>
                 <div className="flex flex-col gap-2">
-                    <label htmlFor="titulo" className="dark:text-slate-100">Texto da Postagem</label>
-                    <input
-                        type="text"
-                        placeholder="Texto"
-                        name="texto"
-                        required
-                        minLength={3}
-                        className="border-2 border-slate-700 rounded p-2 bg-white dark:bg-slate-800 dark:text-slate-100 transition-colors"
-                        value={postagem.texto}
-                        onChange={(e: ChangeEvent<HTMLInputElement>) => atualizarEstado(e)}
-                    />
+                    <label htmlFor="texto" className="dark:text-slate-100 font-bold">Conteúdo da Postagem</label>
+                    <div className="bg-white rounded overflow-hidden">
+                        <ReactQuill
+                            theme="snow"
+                            value={postagem.texto}
+                            onChange={handleTextoChange}
+                            placeholder="Escreva algo incrível..."
+                            className="bg-white text-slate-900"
+                            modules={{
+                                toolbar: [
+                                    [{ 'header': [1, 2, 3, false] }],
+                                    ['bold', 'italic', 'underline', 'strike'],
+                                    [{ 'list': 'ordered' }, { 'list': 'bullet' }],
+                                    ['link', 'clean']
+                                ],
+                            }}
+                        />
+                    </div>
                 </div>
                 <div className="flex flex-col gap-2">
                     <p className="dark:text-slate-100">Tema da Postagem</p>
