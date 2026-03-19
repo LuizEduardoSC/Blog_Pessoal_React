@@ -1,3 +1,4 @@
+import Comentario from "./Comentario";
 import Tema from "./Tema";
 import Usuario from "./Usuario";
 
@@ -8,4 +9,5 @@ export default interface Postagem {
     data: string;
     tema: Tema | null;
     usuario: Usuario | null;
+    comentarios?: Comentario[];
 }

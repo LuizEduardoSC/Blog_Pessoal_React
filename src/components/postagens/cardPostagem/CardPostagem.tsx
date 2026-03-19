@@ -39,13 +39,17 @@ function CardPostagem({ postagem }: CardPostagensProps) {
                     </p>
                 </div>
             </div>
-            <div className="flex">
+            <div className="flex border-t dark:border-slate-700">
+                <Link to={`/postagem/${postagem.id}`}
+                    className='w-full text-indigo-700 dark:text-indigo-300 bg-indigo-50 hover:bg-indigo-100 dark:bg-slate-700 dark:hover:bg-slate-600 flex items-center justify-center py-3 transition-colors font-bold text-sm'>
+                    💬 Ver Post
+                </Link>
                 <Link to={`/editarpostagem/${postagem.id}`}
-                    className='w-full text-white bg-indigo-500 hover:bg-indigo-700 dark:bg-indigo-600 dark:hover:bg-indigo-500 flex items-center justify-center py-3 transition-colors font-bold'>
+                    className='w-full text-white bg-indigo-500 hover:bg-indigo-700 dark:bg-indigo-600 dark:hover:bg-indigo-500 flex items-center justify-center py-3 transition-colors font-bold text-sm'>
                     Editar
                 </Link>
                 <Link to={`/deletarpostagem/${postagem.id}`} 
-                    className='text-white bg-red-500 hover:bg-red-700 dark:bg-red-700 dark:hover:bg-red-600 w-full flex items-center justify-center py-3 transition-colors font-bold'>
+                    className='text-white bg-red-500 hover:bg-red-700 dark:bg-red-700 dark:hover:bg-red-600 w-full flex items-center justify-center py-3 transition-colors font-bold text-sm'>
                     Deletar
                 </Link>
             </div>

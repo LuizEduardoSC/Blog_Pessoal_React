@@ -7,6 +7,7 @@ import Navbar from './components/navbar/Navbar';
 import DeletarPostagem from './components/postagens/deletarPostagem/DeletarPostagem';
 import FormPostagem from './components/postagens/formPostagem/FormPostagem';
 import ListaPostagens from './components/postagens/listaPostagens/ListaPostagens';
+import DeletarComentario from './components/comentarios/deletarComentario/DeletarComentario';
 import DeletarTema from './components/temas/deletarTemas/DeletarTemas';
 import FormTema from './components/temas/formTemas/FormTemas';
 import ListaTemas from './components/temas/listaTemas/ListaTemas';
@@ -16,6 +17,7 @@ import Cadastro from './pages/cadastro/Cadastro';
 import Home from './pages/home/Home';
 import Login from './pages/login/Login';
 import Perfil from './pages/perfil/Perfil';
+import PostagemDetalhe from './pages/postagem/PostagemDetalhe';
 
 import 'react-toastify/dist/ReactToastify.css';
 
@@ -50,6 +52,8 @@ function App() {
                 <Route path="/editarPostagem/:id" element={<FormPostagem />} />
                 <Route path="/deletarPostagem/:id" element={<DeletarPostagem />} />
                 <Route path="/perfil" element={<Perfil />} />
+                <Route path="/postagem/:id" element={<PostagemDetalhe />} />
+                <Route path="/deletarcomentario/:id" element={<DeletarComentario />} />
               </Routes>
             </motion.div>
           </AnimatePresence>
