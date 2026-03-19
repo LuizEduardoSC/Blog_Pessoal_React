@@ -9,10 +9,11 @@ Este é o projeto frontend de um **Blog Pessoal**, desenvolvido com as tecnologi
 O sistema funciona como uma plataforma de blog completa, onde é possível:
 
 - **Autenticação Segura:** Cadastro e login de usuários com persistência de sessão (JWT).
+- **Modo Escuro (Dark Mode):** Suporte completo a temas claro e escuro, com troca dinâmica e persistência da preferência do usuário (Context API + Tailwind).
 - **Gestão de Temas:** Visualização, criação, edição e exclusão de categorias (temas) para as postagens.
 - **Gestão de Postagens:** Criação de conteúdos vinculados a temas específicos, com suporte a edição e remoção.
 - **Perfil do Usuário:** Espaço dedicado para exibir as informações do autor logado.
-- **Feedback Visual:** Notificações em tempo real (Toasts) para ações de sucesso ou erro.
+- **Feedback Visual:** Notificações em tempo real (ToastAlerta) para ações de sucesso ou erro.
 
 ---
 
@@ -78,11 +79,12 @@ Este projeto foi construído utilizando as seguintes ferramentas:
 ```text
 src/
 ├── components/ # Componentes reutilizáveis (Navbar, Footer, Forms)
-├── contexts/   # Gerenciamento de estado global (Autenticação)
+├── contexts/   # Gerenciamento de estado global (Autenticação e Tema)
 ├── models/     # Interfaces e Modelos de dados (TypeScript)
 ├── pages/      # Telas principais da aplicação
 ├── services/   # Integração com a API (Axios)
-└── utils/      # Funções utilitárias
+├── utils/      # Funções utilitárias e Alertas
+└── assets/     # Arquivos estáticos (Imagens, SVG)
 ```
 
 ---

@@ -35,6 +35,8 @@ function FormPostagem() {
         titulo: '',
         texto: '',
         data: '',
+        tema: null,
+        usuario: null,
     });
 
     const buscarPostagemPorId = useCallback(async (id: string) => {
