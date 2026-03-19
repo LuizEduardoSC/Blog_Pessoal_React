@@ -17,12 +17,25 @@ export const login = async <T>(url: string, dados: object, setDados: (dados: T) 
 export const buscar = async <T>(url: string, setDados: (dados: T) => void, header: object) => {
     const resposta = await api.get(url, header)
     
-    // Se a resposta for paginada (Spring Data Page), extraímos o 'content'
+    // Se a resposta for paginada (Spring Data Page), extraímos o 'content' por padrão
     if (resposta.data && Array.isArray(resposta.data.content)) {
         setDados(resposta.data.content as T)
     } else {
         setDados(resposta.data)
     }
+}
+
+export interface PageResponse<T> {
+    content: T[];
+    totalPages: number;
+    totalElements: number;
+    size: number;
+    number: number;
+}
+
+export const buscarPaginado = async <T>(url: string, setDados: (dados: PageResponse<T>) => void, header: object) => {
+    const resposta = await api.get(url, header)
+    setDados(resposta.data)
 }
 
 export const cadastrar = async <T>(url: string, dados: object, setDados: (dados: T) => void, header: object) => {

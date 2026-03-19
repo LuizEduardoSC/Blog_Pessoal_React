@@ -118,7 +118,7 @@ function Cadastro() {
             <div className={`grid grid-cols-1 lg:grid-cols-2 h-screen place-items-center font-bold transition-colors duration-300 relative ${theme === 'dark' ? 'bg-slate-900' : 'bg-indigo-900'}`}>
                 <button 
                     onClick={toggleTheme} 
-                    className="absolute bottom-10 right-10 lg:left-[52%] z-50 p-4 rounded-full bg-indigo-900 text-white dark:bg-indigo-600 shadow-2xl hover:scale-110 active:scale-95 transition-all flex items-center justify-center"
+                    className="absolute bottom-10 right-10 lg:right-auto lg:left-[52%] z-50 w-14 h-14 rounded-full bg-indigo-900 text-white dark:bg-indigo-600 shadow-2xl hover:scale-110 active:scale-95 transition-all flex items-center justify-center"
                     title="Alternar tema"
                 >
                     {theme === 'light' ? <Moon size={28} weight="fill" /> : <Sun size={28} weight="fill" />}
