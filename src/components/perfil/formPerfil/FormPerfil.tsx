@@ -18,7 +18,8 @@ function FormPerfil() {
         nome: usuario.nome,
         usuario: usuario.usuario,
         senha: '',
-        foto: usuario.foto
+        foto: usuario.foto,
+        sobre: usuario.sobre || ''
     });
 
     useEffect(() => {
@@ -28,7 +29,7 @@ function FormPerfil() {
         }
     }, [token, navigate]);
 
-    function atualizarEstado(e: ChangeEvent<HTMLInputElement>) {
+    function atualizarEstado(e: ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) {
         setPerfil({
             ...perfil,
             [e.target.name]: e.target.value
@@ -118,6 +119,18 @@ function FormPerfil() {
                         className="border-2 border-slate-700 rounded p-2 bg-white dark:bg-slate-800 dark:text-white transition-colors focus:ring-2 focus:ring-indigo-500 outline-none"
                         value={perfil.foto}
                         onChange={(e: ChangeEvent<HTMLInputElement>) => atualizarEstado(e)}
+                    />
+                </div>
+                <div className="flex flex-col gap-2">
+                    <label htmlFor="sobre" className="dark:text-slate-100 font-semibold">Sobre (Bio)</label>
+                    <textarea
+                        id="sobre"
+                        name="sobre"
+                        rows={3}
+                        placeholder="Conte um pouco sobre você..."
+                        className="border-2 border-slate-700 rounded p-2 bg-white dark:bg-slate-800 dark:text-white transition-colors focus:ring-2 focus:ring-indigo-500 outline-none resize-none"
+                        value={perfil.sobre}
+                        onChange={(e: ChangeEvent<HTMLTextAreaElement>) => atualizarEstado(e)}
                     />
                 </div>
                 

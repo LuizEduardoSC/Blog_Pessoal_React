@@ -68,7 +68,7 @@ function Perfil() {
                         <div className='bg-slate-50 dark:bg-slate-800/50 p-6 rounded-2xl border border-slate-100 dark:border-slate-800'>
                             <h3 className='text-slate-500 dark:text-slate-400 text-sm font-bold uppercase tracking-wider mb-2'>Sobre</h3>
                             <p className='text-slate-700 dark:text-slate-300 leading-relaxed font-medium'>
-                                Membro do Blog Pessoal. Compartilhando ideias e conhecimentos com a comunidade.
+                                {usuario.sobre || "Membro do Blog Pessoal. Compartilhando ideias e conhecimentos com a comunidade."}
                             </p>
                         </div>
 
