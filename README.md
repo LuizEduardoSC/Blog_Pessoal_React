@@ -17,8 +17,12 @@ O sistema funciona como uma plataforma de blog completa, onde é possível:
 - **Busca em Tempo Real:** Filtro de postagens e temas enquanto você digita, com feedback visual para resultados vazios.
 - **Animações Fluídas:** Transições suaves entre páginas e efeitos de entrada/hover nos cards com Framer Motion.
 - **Gestão de Temas & Postagens:** CRUD completo (Criação, Leitura, Atualização e Exclusão) com validações e feedback instantâneo.
-- **Perfil do Usuário:** Espaço dedicado para exibir as informações do autor logado e suas interações.
-- **Feedback Visual:** Notificações em tempo real (**ToastAlerta**) elegantes e customizadas para todas as ações do sistema.
+- **Perfil do Usuário Interativo:** Espaço dedicado para exibir informações, estatísticas da conta e uma seção de **Bio (Sobre)** personalizada.
+- **Edição de Perfil & Avatar:** Permite que o usuário altere seu nome, usuário, foto de perfil e bio, com sincronização em tempo real em todo o app.
+- **Status Online (Toggle Direto):** Indicador visual interativo no avatar (ponto verde/cinza) para alternar o status de presença com um clique.
+- **Header Inteligente:** Navbar integrada com o avatar do usuário e indicador de status, adaptável para todos os dispositivos.
+- **Feedback Visual Profissional:** Notificações em tempo real (**ToastAlerta**) elegantes e customizadas para todas as ações do sistema.
+- **Correção SPA (Vercel):** Configuração nativa (`vercel.json`) para evitar erros 404 ao recarregar a página em ambiente de produção.
 
 ---
 
