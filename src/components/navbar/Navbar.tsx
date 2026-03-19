@@ -1,6 +1,6 @@
 import { useContext, useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
-import { List, Moon, Sun, X } from "@phosphor-icons/react";
+import { List, Moon, Sun, UserCircle, X } from "@phosphor-icons/react";
 import { AuthContext } from "../../contexts/AuthContext";
 import { ThemeContext } from "../../contexts/ThemeContext";
 import { ToastAlerta } from "../../utils/ToastAlerts";
@@ -40,7 +40,14 @@ function Navbar() {
                         <Link to="/postagens" className="hover:text-indigo-200 transition-colors">Postagens</Link>
                         <Link to="/temas" className="hover:text-indigo-200 transition-colors">Temas</Link>
                         <Link to="/cadastrartema" className="hover:text-indigo-200 transition-colors">Novo Tema</Link>
-                        <Link to="/perfil" className="hover:text-indigo-200 transition-colors">Perfil</Link>
+                        <Link to="/perfil" className="hover:text-indigo-200 transition-colors flex items-center gap-2">
+                            {usuario.foto ? (
+                                <img src={usuario.foto} alt={usuario.nome} className="w-8 h-8 rounded-full object-cover border border-white/50" />
+                            ) : (
+                                <UserCircle size={24} />
+                            )}
+                            Perfil
+                        </Link>
                         <Link to="" onClick={logout} className="hover:text-red-300 transition-colors font-bold">Sair</Link>
                         
                         <button onClick={toggleTheme} className="p-2 rounded-full hover:bg-white/10 transition-colors border border-transparent hover:border-white/20" title="Alternar tema">
@@ -69,7 +76,14 @@ function Navbar() {
                         <Link to="/postagens" onClick={() => setIsMenuOpen(false)} className="hover:bg-white/10 py-2 rounded-lg transition-colors">Postagens</Link>
                         <Link to="/temas" onClick={() => setIsMenuOpen(false)} className="hover:bg-white/10 py-2 rounded-lg transition-colors">Temas</Link>
                         <Link to="/cadastrartema" onClick={() => setIsMenuOpen(false)} className="hover:bg-white/10 py-2 rounded-lg transition-colors">Novo Tema</Link>
-                        <Link to="/perfil" onClick={() => setIsMenuOpen(false)} className="hover:bg-white/10 py-2 rounded-lg transition-colors">Perfil</Link>
+                        <Link to="/perfil" onClick={() => setIsMenuOpen(false)} className="hover:bg-white/10 py-2 rounded-lg transition-colors flex items-center justify-center gap-2">
+                            {usuario.foto ? (
+                                <img src={usuario.foto} alt={usuario.nome} className="w-8 h-8 rounded-full object-cover border border-white/50" />
+                            ) : (
+                                <UserCircle size={24} />
+                            )}
+                            Perfil
+                        </Link>
                         <Link to="" onClick={logout} className="text-red-400 py-2 rounded-lg hover:bg-red-500/10 transition-colors">Sair</Link>
                     </div>
                 </div>
