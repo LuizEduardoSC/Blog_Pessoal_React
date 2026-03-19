@@ -8,6 +8,7 @@ interface AuthContextProps {
     usuario: UsuarioLogin
     handleLogout(): void
     handleLogin(usuario: UsuarioLogin): Promise<void>
+    setUsuario: React.Dispatch<React.SetStateAction<UsuarioLogin>>
     isLoading: boolean
 }
 
@@ -77,7 +78,7 @@ export function AuthProvider({ children }: AuthProvidersProps) {
     }, []);
 
     return(
-        <AuthContext.Provider value={{ usuario, handleLogin, handleLogout, isLoading}}>
+        <AuthContext.Provider value={{ usuario, handleLogin, handleLogout, setUsuario, isLoading}}>
             {children}
         </AuthContext.Provider>
     )

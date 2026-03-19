@@ -18,6 +18,7 @@ import Home from './pages/home/Home';
 import Login from './pages/login/Login';
 import Perfil from './pages/perfil/Perfil';
 import PostagemDetalhe from './pages/postagem/PostagemDetalhe';
+import FormPerfil from './components/perfil/formPerfil/FormPerfil';
 
 import 'react-toastify/dist/ReactToastify.css';
 
@@ -52,6 +53,7 @@ function App() {
                 <Route path="/editarPostagem/:id" element={<FormPostagem />} />
                 <Route path="/deletarPostagem/:id" element={<DeletarPostagem />} />
                 <Route path="/perfil" element={<Perfil />} />
+                <Route path="/editarperfil" element={<FormPerfil />} />
                 <Route path="/postagem/:id" element={<PostagemDetalhe />} />
                 <Route path="/deletarcomentario/:id" element={<DeletarComentario />} />
               </Routes>
