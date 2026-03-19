@@ -8,13 +8,13 @@ function Home() {
         <>
             <div id="container" className="
             flex
-            bg-indigo-900 
-            justify-center">
+            bg-indigo-900 dark:bg-slate-900
+            justify-center transition-colors duration-300">
                 <div id="subcontainer" className="
                 container 
                 grid 
                 grid-cols-2 
-                text-white">
+                text-white dark:text-slate-100">
                     <div id="texto" className="
                     flex 
                     flex-col 

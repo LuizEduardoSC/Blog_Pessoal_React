@@ -1,4 +1,8 @@
 .popup-content {
-    border-radius: 1rem;
-    padding-bottom: 2rem;
+    @apply rounded-2xl pb-8 bg-white dark:bg-slate-800 transition-colors duration-300 border-none !important;
+    width: 40% !important;
+}
+
+.popup-overlay {
+    @apply bg-black/50 backdrop-blur-sm !important;
 }

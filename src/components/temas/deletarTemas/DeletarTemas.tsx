@@ -72,25 +72,25 @@ function DeletarTema() {
     }
 
     return (
-        <div className='container w-1/3 mx-auto'>
-            <h1 className='text-4xl text-center my-4'>Deletar tema</h1>
-            <p className='text-center font-semibold mb-4'>
+        <div className='container w-1/3 mx-auto transition-colors duration-300'>
+            <h1 className='text-4xl text-center my-4 dark:text-slate-100'>Deletar tema</h1>
+            <p className='text-center font-semibold mb-4 dark:text-slate-300'>
                 Você tem certeza de que deseja apagar o tema a seguir?</p>
-            <div className='border flex flex-col rounded-2xl overflow-hidden justify-between'>
+            <div className='border flex flex-col rounded-2xl overflow-hidden justify-between dark:border-slate-700'>
                 <header
-                    className='py-2 px-6 bg-indigo-600 text-white font-bold text-2xl'>
+                    className='py-2 px-6 bg-indigo-600 text-white font-bold text-2xl dark:bg-slate-700 transition-colors'>
                     Tema
                 </header>
-                <p className='p-8 text-3xl bg-slate-200 h-full'>{tema.descricao}</p>
+                <p className='p-8 text-3xl bg-slate-200 h-full dark:bg-slate-800 dark:text-slate-100 transition-colors'>{tema.descricao}</p>
                 <div className="flex">
                     <button
-                        className='text-slate-100 bg-red-400 hover:bg-red-600 w-full py-2'
+                        className='text-slate-100 bg-red-400 hover:bg-red-600 dark:bg-red-700 dark:hover:bg-red-500 w-full py-2 transition-colors'
                         onClick={retornar}>
                         Não
                     </button>
                     <button
                         className='w-full text-slate-100 bg-indigo-400 
-                                   hover:bg-indigo-600 flex items-center justify-center'
+                                   hover:bg-indigo-600 dark:bg-indigo-700 dark:hover:bg-indigo-500 flex items-center justify-center transition-colors'
                         onClick={deletarTema}>
                         {isLoading ?
                             <RotatingLines

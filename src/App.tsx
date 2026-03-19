@@ -10,6 +10,7 @@ import DeletarTema from './components/temas/deletarTemas/DeletarTemas';
 import FormTema from './components/temas/formTemas/FormTemas';
 import ListaTemas from './components/temas/listaTemas/ListaTemas';
 import { AuthProvider } from './contexts/AuthContext';
+import { ThemeProvider } from './contexts/ThemeContext';
 import Cadastro from './pages/cadastro/Cadastro';
 import Home from './pages/home/Home';
 import Login from './pages/login/Login';
@@ -19,7 +20,7 @@ import 'react-toastify/dist/ReactToastify.css';
 
 function App() {
   return (
-    <>
+    <ThemeProvider>
       <AuthProvider>
         <ToastContainer />
         <BrowserRouter>
@@ -44,7 +45,7 @@ function App() {
           <Footer />
         </BrowserRouter>
       </AuthProvider>
-    </>
+    </ThemeProvider>
   );
 }
 

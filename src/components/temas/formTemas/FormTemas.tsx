@@ -96,26 +96,26 @@ function FormTema() {
     }
 
     return (
-        <div className="container flex flex-col items-center justify-center mx-auto">
-            <h1 className="text-4xl text-center my-8">
+        <div className="container flex flex-col items-center justify-center mx-auto transition-colors duration-300">
+            <h1 className="text-4xl text-center my-8 dark:text-slate-100">
                 {id === undefined ? 'Cadastrar Tema' : 'Editar Tema'}
             </h1>
 
             <form className="w-1/2 flex flex-col gap-4" onSubmit={gerarNovoTema}>
                 <div className="flex flex-col gap-2">
-                    <label htmlFor="descricao">Descrição do Tema</label>
+                    <label htmlFor="descricao" className="dark:text-slate-100">Descrição do Tema</label>
                     <input
                         type="text"
                         placeholder="Descreva aqui seu tema"
                         name='descricao'
-                        className="border-2 border-slate-700 rounded p-2"
+                        className="border-2 border-slate-700 rounded p-2 bg-white dark:bg-slate-800 dark:text-slate-100 transition-colors"
                         value={tema.descricao}
                         onChange={(e: ChangeEvent<HTMLInputElement>) => atualizarEstado(e)}
                     />
                 </div>
                 <button
                     className="rounded text-slate-100 bg-indigo-400 
-                               hover:bg-indigo-800 w-1/2 py-2 mx-auto flex justify-center"
+                               hover:bg-indigo-800 dark:bg-indigo-600 dark:hover:bg-indigo-500 w-1/2 py-2 mx-auto flex justify-center transition-colors"
                     type="submit">
 
                     {isLoading ?

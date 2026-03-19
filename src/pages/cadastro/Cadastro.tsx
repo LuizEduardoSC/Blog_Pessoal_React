@@ -1,23 +1,29 @@
-import { ChangeEvent, FormEvent, useEffect, useState } from 'react'
+import { ChangeEvent, FormEvent, useCallback, useContext, useEffect, useState } from 'react'
 import { RotatingLines } from 'react-loader-spinner'
 import { useNavigate } from 'react-router-dom'
 import Usuario from '../../models/Usuario'
 import { cadastrarUsuario } from '../../services/Service'
 import './Cadastro.css'
 
+import { ToastAlerta } from '../../utils/ToastAlerts'
+
+import { Moon, Sun } from '@phosphor-icons/react';
+import { ThemeContext } from '../../contexts/ThemeContext';
+
 function Cadastro() {
 
-     // Criamos uma constante que recebe o hook useNavigate, para podermos redirecionar o usuário
-     const navigate = useNavigate()
+    const navigate = useNavigate();
 
-     // Variavel de Estado de Carregamento - usada para indicar que está havendo alguma requisição ao Back
-     const [isLoading, setIsLoading] = useState<boolean>(false)
- 
-     // Variavel de Estado de Senha - usada para verificar se as senhas foram digitadas iguais
-     const [confirmaSenha, setConfirmaSenha] = useState<string>("")
- 
-     // Variavel de Estado do Usuário - Registra um Objeto da Interface Usuario que armazena os dados que foram digitados nos inputs do formulario
-     const [usuario, setUsuario] = useState<Usuario>({
+    const themeContext = useContext(ThemeContext)
+
+    // Variavel de Estado de Carregamento - usada para indicar que está havendo alguma requisição ao Back
+    const [isLoading, setIsLoading] = useState<boolean>(false)
+
+    // Variavel de Estado de Senha - usada para verificar se as senhas foram digitadas iguais
+    const [confirmaSenha, setConfirmaSenha] = useState<string>("")
+
+    // Variavel de Estado do Usuário - Registra um Objeto da Interface Usuario que armazena os dados que foram digitados nos inputs do formulario
+    const [usuario, setUsuario] = useState<Usuario>({
         id: 0,
         nome: '',
         usuario: '',
@@ -25,16 +31,27 @@ function Cadastro() {
         foto: ''
     })
 
+    const [usuarioResult, setUsuarioResult] = useState<Usuario>({
+        id: 0,
+        nome: '',
+        usuario: '',
+        senha: '',
+        foto: ''
+    })
+
+    // Função que envia o usuario a pagina de login, através das rotas
+    const retornar = useCallback(() => {
+        navigate('/login')
+    }, [navigate])
+
     useEffect(() => {
-        if (usuario.id !== 0) {
+        if (usuarioResult.id !== 0) {
             retornar()
         }
-    }, [usuario])
+    }, [usuarioResult, retornar])
 
-     // Função que envia o usuario a pagina de login, através das rotas
-     function retornar() {
-        navigate('/login')
-    }
+    if (!themeContext) return null;
+    const { theme, toggleTheme } = themeContext;
 
     // Função que através do evento de mudança de um Input, captura o que foi digitado e através da função setUsuario() atualiza o estado/objeto de usuario
     function atualizarEstado(e: ChangeEvent<HTMLInputElement>) {
@@ -54,14 +71,12 @@ function Cadastro() {
             // O lado esquerdo, representa qual input chamou essa função e qual atributo do Objeto Usuario que será acessado, a parte direita pega o valor digitado
             [e.target.name]: e.target.value
         })
-        console.log(usuario)
     }
 
     // Função que através do evento de mudança de um Input, captura o que foi digitado e através da função setConfirmaSenha() atualiza o estado de senha
     function handleConfirmarSenha(e: ChangeEvent<HTMLInputElement>) {
         setConfirmaSenha(e.target.value)
 
-        console.log(confirmaSenha)
     }
 
     // Função assincrona que vai cadastrar o usuário
@@ -74,14 +89,15 @@ function Cadastro() {
             setIsLoading(true)// Muda o estado para verdadeiro, indicando que existe uma requisição sendo processada no back
 
             try {    // Tenta fazer a requisição, e se houver erro impede que a aplicação pare
-                await cadastrarUsuario(`/usuarios/cadastrar`, usuario, setUsuario)    // Esperamos que a Service cadastrarUsuario() finalize a sua requisição
+                await cadastrarUsuario(`/usuarios/cadastrar`, usuario, setUsuarioResult)    // Esperamos que a Service cadastrarUsuario() finalize a sua requisição
 
-                alert('Usuario cadastrado com sucesso!')    // Avisa ao usuário que deu bom
+                ToastAlerta('Usuario cadastrado com sucesso!', "sucesso")    // Avisa ao usuário que deu bom
             } catch (error) {
-                alert('Erro ao cadastrar o usuario!')    // Avisa ao usuário que deu erro
+                const message = (error as any).response?.data?.message || 'Erro ao cadastrar o usuario!';
+                ToastAlerta(message, "erro")    // Avisa ao usuário que deu erro
             }
         } else {
-            alert('Dados estão inconsistentes. Verifique as informações do cadastro')  // Se as senhas forem < do que 8 ou forem difernetes
+            ToastAlerta('Dados estão inconsistentes. Verifique as informações do cadastro', "erro")  // Se as senhas forem < do que 8 ou forem difernetes
 
             setUsuario({ ...usuario, senha: '' })  // Reinicia o campo de Senha
             setConfirmaSenha('')                   // Reinicia o campo de Confirmar Senha
@@ -92,79 +108,87 @@ function Cadastro() {
 
     return (
         <>
-            <div className="grid grid-cols-1 lg:grid-cols-2 h-screen place-items-center font-bold">
+            <div className={`grid grid-cols-1 lg:grid-cols-2 h-screen place-items-center font-bold transition-colors duration-300 relative ${theme === 'dark' ? 'bg-slate-900' : 'bg-indigo-900'}`}>
+                <button 
+                    onClick={toggleTheme} 
+                    className="absolute bottom-10 right-10 lg:left-[52%] z-50 p-4 rounded-full bg-indigo-900 text-white dark:bg-indigo-600 shadow-2xl hover:scale-110 active:scale-95 transition-all flex items-center justify-center"
+                    title="Alternar tema"
+                >
+                    {theme === 'light' ? <Moon size={28} weight="fill" /> : <Sun size={28} weight="fill" />}
+                </button>
+
                 <div className="fundoCadastro hidden lg:block"></div>
-                <form className='flex justify-center items-center flex-col w-2/3 gap-3'
+                <form className='flex justify-center items-center flex-col w-2/3 gap-3 transition-colors duration-300'
                     onSubmit={cadastrarNovoUsuario}  // onSubmit é o evento que dispara a função de cadastro quando o usuário clica em cadastrar 
                     >    
 
-                    <h2 className='text-slate-900 text-5xl'>Cadastrar</h2>
+                    <h2 className={`text-5xl ${theme === 'dark' ? 'text-slate-100' : 'text-white'}`}>Cadastrar</h2>
                     <div className="flex flex-col w-full">
-                        <label htmlFor="nome">Nome</label>
+                        <label htmlFor="nome" className={theme === 'dark' ? 'text-slate-100' : 'text-white'}>Nome</label>
                         <input
                             type="text"
                             id="nome"
                             name="nome"
                             placeholder="Nome"
-                            className="border-2 border-slate-700 rounded p-2"
+                            className={`border-2 border-slate-700 rounded p-2 transition-colors ${theme === 'dark' ? 'bg-slate-800 text-slate-100' : 'bg-white text-slate-900'}`}
                             value={usuario.nome}   // Conecta esse input com o atributo nome do estado/objeto usuario
                             onChange={(e: ChangeEvent<HTMLInputElement>) => atualizarEstado(e)}  // Quando o usuario digitar algo, chama a função atualizarEstado
                             
                         />
                     </div>
                     <div className="flex flex-col w-full">
-                        <label htmlFor="usuario">Usuario</label>
+                        <label htmlFor="usuario" className={theme === 'dark' ? 'text-slate-100' : 'text-white'}>Usuario</label>
                         <input
                             type="text"
                             id="usuario"
                             name="usuario"
                             placeholder="Usuario"
-                            className="border-2 border-slate-700 rounded p-2"
+                            className={`border-2 border-slate-700 rounded p-2 transition-colors ${theme === 'dark' ? 'bg-slate-800 text-slate-100' : 'bg-white text-slate-900'}`}
                             value={usuario.usuario}
                             onChange={(e: ChangeEvent<HTMLInputElement>) => atualizarEstado(e)}
                         />
                     </div>
                     <div className="flex flex-col w-full">
-                        <label htmlFor="foto">Foto</label>
+                        <label htmlFor="foto" className={theme === 'dark' ? 'text-slate-100' : 'text-white'}>Foto</label>
                         <input
                             type="text"
                             id="foto"
                             name="foto"
                             placeholder="Foto"
-                            className="border-2 border-slate-700 rounded p-2"
+                            className={`border-2 border-slate-700 rounded p-2 transition-colors ${theme === 'dark' ? 'bg-slate-800 text-slate-100' : 'bg-white text-slate-900'}`}
                             value={usuario.foto}
                             onChange={(e: ChangeEvent<HTMLInputElement>) => atualizarEstado(e)}
                         />
                     </div>
                     <div className="flex flex-col w-full">
-                        <label htmlFor="senha">Senha</label>
+                        <label htmlFor="senha" className={theme === 'dark' ? 'text-slate-100' : 'text-white'}>Senha</label>
                         <input
                             type="password"
                             id="senha"
                             name="senha"
                             placeholder="Senha"
-                            className="border-2 border-slate-700 rounded p-2"
+                            className={`border-2 border-slate-700 rounded p-2 transition-colors ${theme === 'dark' ? 'bg-slate-800 text-slate-100' : 'bg-white text-slate-900'}`}
                             value={usuario.senha}
                             onChange={(e: ChangeEvent<HTMLInputElement>) => atualizarEstado(e)}
                         />
                     </div>
                     <div className="flex flex-col w-full">
-                        <label htmlFor="confirmarSenha">Confirmar Senha</label>
+                        <label htmlFor="confirmarSenha" className={theme === 'dark' ? 'text-slate-100' : 'text-white'}>Confirmar Senha</label>
                         <input
                             type="password"
                             id="confirmarSenha"
                             name="confirmarSenha"
                             placeholder="Confirmar Senha"
-                            className="border-2 border-slate-700 rounded p-2"
+                            className={`border-2 border-slate-700 rounded p-2 transition-colors ${theme === 'dark' ? 'bg-slate-800 text-slate-100' : 'bg-white text-slate-900'}`}
                             value={confirmaSenha}
                             onChange={(e: ChangeEvent<HTMLInputElement>) => handleConfirmarSenha(e)}
                         />
                     </div>
                     <div className="flex justify-around w-full gap-8">
-                        <button className='rounded text-white bg-red-400 hover:bg-red-700 w-1/2 py-2' onClick={retornar}>
+                        <button className={`rounded text-white bg-red-400 hover:bg-red-700 w-1/2 py-2 transition-all ${theme === 'dark' ? 'dark:bg-red-700 dark:hover:bg-red-500' : ''}`} onClick={retornar}>
                             Cancelar
                         </button>
-                        <button type='submit' className='rounded text-white bg-indigo-400 hover:bg-indigo-900 w-1/2 py-2 flex justify-center'>
+                        <button type='submit' className="rounded text-white bg-indigo-400 hover:bg-indigo-900 dark:bg-indigo-600 dark:hover:bg-indigo-500 w-1/2 py-2 flex justify-center transition-all">
 
                             {
                             // Renderização Condicial - Se isLoading for true mostra o componente de carregamento
@@ -185,5 +209,6 @@ function Cadastro() {
         </>
     )
 }
+
 
 export default Cadastro

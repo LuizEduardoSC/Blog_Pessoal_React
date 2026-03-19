@@ -9,7 +9,7 @@ function ModalPostagem() {
             <Popup  // É a Janela que se abre ao clicarmos no Botão para exibir o Formulário
                 trigger={   // É um gatilho (botão) que sempre pressionado abre o Modal/PopUp/Janela
                     // É o botão que é clicado e abre o Modal
-                    <button className='border rounded px-4 hover:bg-white hover:text-indigo-800'>
+                    <button className='border rounded px-4 hover:bg-white hover:text-indigo-800 dark:text-slate-100 dark:hover:bg-slate-800 dark:hover:text-white transition-colors'>
                         Nova postagem
                     </button>
                 } modal>

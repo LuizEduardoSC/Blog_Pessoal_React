@@ -86,20 +86,20 @@ function DeletarPostagem() {
 
 
     return (
-        <div className='container w-1/3 mx-auto'>
-            <h1 className='text-4xl text-center my-4'>Deletar postagem</h1>
+        <div className='container w-1/3 mx-auto transition-colors duration-300'>
+            <h1 className='text-4xl text-center my-4 dark:text-slate-100'>Deletar postagem</h1>
 
-            <p className='text-center font-semibold mb-4'>Você tem certeza de que deseja apagar a postagem a seguir?</p>
+            <p className='text-center font-semibold mb-4 dark:text-slate-300'>Você tem certeza de que deseja apagar a postagem a seguir?</p>
 
-            <div className='border flex flex-col rounded-2xl overflow-hidden justify-between'>
-                <header className='py-2 px-6 bg-indigo-600 text-white font-bold text-2xl'>Postagem</header>
-                <div className="p-4">
-                    <p className='text-xl h-full'>{postagem.titulo}</p>
-                    <p>{postagem.texto}</p>
+            <div className='border flex flex-col rounded-2xl overflow-hidden justify-between dark:border-slate-700 transition-colors'>
+                <header className='py-2 px-6 bg-indigo-600 text-white font-bold text-2xl dark:bg-slate-700 transition-colors'>Postagem</header>
+                <div className="p-4 dark:bg-slate-800 transition-colors">
+                    <p className='text-xl h-full dark:text-slate-100'>{postagem.titulo}</p>
+                    <p className='dark:text-slate-300'>{postagem.texto}</p>
                 </div>
                 <div className="flex">
-                    <button className='text-slate-100 bg-red-400 hover:bg-red-600 w-full py-2' onClick={retornar}>Não</button>
-                    <button className='w-full text-slate-100 bg-indigo-400 hover:bg-indigo-600 flex items-center justify-center' onClick={deletarPostagem}>
+                    <button className='text-slate-100 bg-red-400 hover:bg-red-600 dark:bg-red-700 dark:hover:bg-red-500 w-full py-2 transition-colors' onClick={retornar}>Não</button>
+                    <button className='w-full text-slate-100 bg-indigo-400 hover:bg-indigo-600 dark:bg-indigo-700 dark:hover:bg-indigo-500 flex items-center justify-center transition-colors' onClick={deletarPostagem}>
 
                         {isLoading ?
                             <RotatingLines
