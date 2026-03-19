@@ -92,8 +92,15 @@ function Cadastro() {
                 await cadastrarUsuario(`/usuarios/cadastrar`, usuario, setUsuarioResult)    // Esperamos que a Service cadastrarUsuario() finalize a sua requisição
 
                 ToastAlerta('Usuario cadastrado com sucesso!', "sucesso")    // Avisa ao usuário que deu bom
-            } catch (error) {
-                const message = (error as { response?: { data?: { message?: string } } }).response?.data?.message || 'Erro ao cadastrar o usuario!';
+            } catch (error: any) {
+                console.error("Erro no cadastro:", error)
+                
+                // Tenta extrair a mensagem do backend (nosso HttpResponse.java)
+                const backendMessage = error.response?.data?.message;
+                
+                // Se não encontrar, tenta a mensagem genérica do Axios ou o fallback
+                const message = backendMessage || error.message || 'Erro ao cadastrar o usuario!';
+                
                 ToastAlerta(message, "erro")    // Avisa ao usuário que deu erro
             }
         } else {

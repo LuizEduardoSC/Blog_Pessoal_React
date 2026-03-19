@@ -17,26 +17,29 @@ function CardComentario({ comentario }: CardComentarioProps) {
         <motion.div
             initial={{ opacity: 0, y: 10 }}
             animate={{ opacity: 1, y: 0 }}
-            className="flex gap-3 p-4 rounded-xl bg-slate-100 dark:bg-slate-700 transition-colors"
+            className="flex gap-4 p-5 rounded-2xl bg-white dark:bg-slate-800 border border-slate-100 dark:border-slate-700 shadow-sm hover:shadow-md transition-all group"
         >
-            <img
-                src={comentario.usuario?.foto || 'https://i.imgur.com/HeIi0wU.png'}
-                alt={comentario.usuario?.nome}
-                className="h-10 w-10 rounded-full object-cover border-2 border-indigo-300 dark:border-indigo-500 flex-shrink-0"
-            />
+            <div className="relative flex-shrink-0">
+                <img
+                    src={comentario.usuario?.foto || 'https://i.imgur.com/HeIi0wU.png'}
+                    alt={comentario.usuario?.nome}
+                    className="h-12 w-12 rounded-full object-cover border-2 border-indigo-100 dark:border-slate-600 shadow-sm"
+                />
+                {/* Opcional: marcador de status aqui se quisermos */}
+            </div>
             <div className="flex-1 min-w-0">
                 <div className="flex items-center justify-between gap-2 flex-wrap">
                     <span className="font-bold text-indigo-700 dark:text-indigo-300 text-sm">
                         {comentario.usuario?.nome}
                     </span>
-                    <span className="text-xs text-slate-400 dark:text-slate-400">
+                    <span className="text-xs font-semibold text-slate-400 dark:text-slate-500 bg-slate-100 dark:bg-slate-900 px-2 py-1 rounded-md">
                         {new Intl.DateTimeFormat('pt-BR', {
-                            dateStyle: 'short',
+                            dateStyle: 'medium',
                             timeStyle: 'short',
                         }).format(new Date(comentario.data))}
                     </span>
                 </div>
-                <p className="text-slate-700 dark:text-slate-200 text-sm mt-1 break-words">
+                <p className="text-slate-700 dark:text-slate-300 text-[15px] mt-2 leading-relaxed break-words font-medium">
                     {comentario.texto}
                 </p>
             </div>

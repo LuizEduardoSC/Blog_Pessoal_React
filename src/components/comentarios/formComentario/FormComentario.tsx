@@ -1,7 +1,6 @@
 import { ChangeEvent, FormEvent, useContext, useState } from 'react';
 import { RotatingLines } from 'react-loader-spinner';
 import { AuthContext } from '../../../contexts/AuthContext';
-import Comentario from '../../../models/Comentario';
 import Postagem from '../../../models/Postagem';
 import { cadastrar } from '../../../services/Service';
 import { ToastAlerta } from '../../../utils/ToastAlerts';
@@ -28,14 +27,13 @@ function FormComentario({ postagem, onComentarioAdded }: FormComentarioProps) {
 
         setIsLoading(true);
 
-        const novoComentario: Partial<Comentario> = {
-            texto,
-            postagem,
-            usuario: { ...usuario, senha: '' },
-        };
-
         try {
-            await cadastrar('/comentarios', novoComentario, () => {}, {
+            // No backend, o comentário costuma ser associado via Postagem e Usuario objetos
+            await cadastrar('/comentarios', {
+                texto,
+                postagem: { id: postagem.id },
+                usuario: { id: usuario.id }
+            }, () => {}, {
                 headers: { Authorization: token },
             });
             ToastAlerta('Comentário adicionado!', 'sucesso');

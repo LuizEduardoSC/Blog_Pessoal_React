@@ -1,5 +1,6 @@
 import { useCallback, useContext, useEffect, useState } from 'react';
 import { RotatingLines } from 'react-loader-spinner';
+import { motion } from 'framer-motion';
 import { AuthContext } from '../../../contexts/AuthContext';
 import Comentario from '../../../models/Comentario';
 import Postagem from '../../../models/Postagem';
@@ -43,9 +44,9 @@ function ListaComentarios({ postagem }: ListaComentariosProps) {
 
             <FormComentario postagem={postagem} onComentarioAdded={buscarComentarios} />
 
-            <div className="flex flex-col gap-3 mt-6">
+            <div className="flex flex-col gap-4 mt-8">
                 {isLoading ? (
-                    <div className="flex justify-center py-8">
+                    <div className="flex flex-col items-center justify-center py-10 opacity-70">
                         <RotatingLines
                             strokeColor="#6366f1"
                             strokeWidth="5"
@@ -53,11 +54,18 @@ function ListaComentarios({ postagem }: ListaComentariosProps) {
                             width="40"
                             visible
                         />
+                        <p className="mt-2 text-sm font-medium text-slate-500 animate-pulse">Carregando comentários...</p>
                     </div>
                 ) : comentarios.length === 0 ? (
-                    <p className="text-center text-slate-400 dark:text-slate-500 py-8">
-                        Nenhum comentário ainda. Seja o primeiro! 🎉
-                    </p>
+                    <motion.div 
+                        initial={{ opacity: 0 }}
+                        animate={{ opacity: 1 }}
+                        className="text-center py-12 px-4 rounded-2xl bg-slate-50 dark:bg-slate-800/50 border-2 border-dashed border-slate-200 dark:border-slate-700"
+                    >
+                        <p className="text-slate-400 dark:text-slate-500 font-medium">
+                            Nenhum comentário ainda. Seja o primeiro a participar! 🎉
+                        </p>
+                    </motion.div>
                 ) : (
                     comentarios.map((comentario) => (
                         <CardComentario key={comentario.id} comentario={comentario} />
