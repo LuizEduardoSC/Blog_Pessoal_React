@@ -8,10 +8,22 @@ Este é o projeto frontend de um **Blog Pessoal**, desenvolvido com as tecnologi
 
 O sistema funciona como uma plataforma de blog completa, onde é possível:
 
+- **Autenticação Segura:** Cadastro e login de usuários com persistência de sessão (JWT) e **Interceptor Global** para gerenciamento de expiração de token.
+- **Modo Escuro (Dark Mode):** Suporte completo a temas claro e escuro, com troca dinâmica e persistência da preferência do usuário (Context API + Tailwind).
 - **Rich Text Editor (React Quill):** Sistema profissional de escrita para postagens, permitindo formatação avançada (negrito, itálico, listas e links) com interface intuitiva. 📝
 - **Paginação Inteligente:** Navegação otimizada em postagens e temas, integrada diretamente com o backend para carregamento rápido e eficiente. 🔢
 - **Sistema de Curtidas (Likes):** Interação social nas postagens com botão de "Coração" animado e contador em tempo real. ❤️
 - **Dashboard de Estatísticas:** Visualização dinâmica no perfil com dados reais sobre total de posts, comentários realizados e o tema em destaque do usuário. 📊
+- **Responsividade Total:** Interface adaptável para dispositivos móveis, tablets e desktop com menu "Hambúrguer" (Mobile-First).
+- **Skeleton Loaders:** Experiência de carregamento premium com animações de pulso enquanto os dados são buscados, substituindo spinners tradicionais.
+- **Detalhamento de Postagens:** Página dedicada para leitura completa de uma postagem com todas as informações do autor e data formatada.
+- **Sistema de Comentários:** Comentários dinâmicos em cada postagem, com suporte a criação e exclusão (restrita ao autor do comentário).
+- **Busca em Tempo Real:** Filtro de postagens e temas enquanto você digita, com feedback visual para resultados vazios.
+- **Animações Fluídas:** Transições suaves entre páginas e efeitos de entrada/hover nos cards com Framer Motion.
+- **Gestão de Temas & Postagens:** CRUD completo (Criação, Leitura, Atualização e Exclusão) com validações e feedback instantâneo.
+- **Perfil do Usuário Interativo:** Espaço dedicado para exibir informações, estatísticas da conta e uma seção de **Bio (Sobre)** personalizada.
+- **Edição de Perfil & Avatar:** Permite que o usuário altere seu nome, usuário, foto de perfil e bio, com sincronização em tempo real em todo o app.
+- **Status Online (Toggle Direto):** Indicador visual interativo no avatar (ponto verde/cinza) para alternar o status de presença com um clique.
 - **Melhoria de Contraste:** Sistema de tema claro/escuro refinado com visibilidade garantida em todos os botões e componentes flutuantes. 🌓
 - **Correção SPA (Vercel):** Configuração nativa (`vercel.json`) para evitar erros 404 ao recarregar a página em ambiente de produção.
 
