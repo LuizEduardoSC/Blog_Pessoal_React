@@ -13,7 +13,7 @@ function PostagemDetalhe() {
     const navigate = useNavigate();
     const { id } = useParams<{ id: string }>();
 
-    const { usuario, handleLogout } = useContext(AuthContext);
+    const { usuario } = useContext(AuthContext);
     const token = usuario.token;
 
     const [postagem, setPostagem] = useState<Postagem>({} as Postagem);
@@ -26,16 +26,11 @@ function PostagemDetalhe() {
                 headers: { Authorization: token },
             });
         } catch (error) {
-            if (error?.toString().includes('403')) {
-                ToastAlerta('O token expirou, favor logar novamente', 'erro');
-                handleLogout();
-            } else {
-                ToastAlerta('Postagem não encontrada', 'erro');
-                navigate('/postagens');
-            }
+            console.error("Erro ao buscar postagem:", error);
+            navigate('/postagens');
         }
         setIsLoading(false);
-    }, [token, handleLogout, navigate]);
+    }, [token, navigate]);
 
     useEffect(() => {
         if (token === '') {

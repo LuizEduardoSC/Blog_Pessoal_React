@@ -18,7 +18,7 @@ function FormPostagem() {
 
     const { id } = useParams<{ id: string }>();
 
-    const { usuario, handleLogout } = useContext(AuthContext);
+    const { usuario } = useContext(AuthContext);
     const token = usuario.token;
 
     const [temas, setTemas] = useState<Tema[]>([]);
@@ -47,12 +47,9 @@ function FormPostagem() {
                 },
             });
         } catch (error) {
-            if (error?.toString().includes('403')) {
-                ToastAlerta('O token expirou, favor logar novamente', "erro");
-                handleLogout();
-            }
+            console.error("Erro ao buscar postagem por ID:", error);
         }
-    }, [token, handleLogout]);
+    }, [token]);
 
     const buscarTemaPorId = useCallback(async (id: string) => {
         try {
@@ -62,12 +59,9 @@ function FormPostagem() {
                 },
             });
         } catch (error) {
-            if (error?.toString().includes('403')) {
-                ToastAlerta('O token expirou, favor logar novamente', "erro");
-                handleLogout();
-            }
+            console.error("Erro ao buscar tema por ID:", error);
         }
-    }, [token, handleLogout]);
+    }, [token]);
 
     const buscarTemas = useCallback(async () => {
         try {
@@ -77,12 +71,9 @@ function FormPostagem() {
                 },
             });
         } catch (error) {
-            if (error?.toString().includes('403')) {
-                ToastAlerta('O token expirou, favor logar novamente', "erro");
-                handleLogout();
-            }
+            console.error("Erro ao buscar temas:", error);
         }
-    }, [token, handleLogout]);
+    }, [token]);
 
     useEffect(() => {
         if (token === "") {
@@ -132,13 +123,8 @@ function FormPostagem() {
                 ToastAlerta('Postagem atualizada com sucesso', "sucesso")
 
             } catch (error) {
-                if (error?.toString().includes('403')) {
-                    ToastAlerta('O token expirou, favor logar novamente', "erro")
-                    handleLogout()
-                } else {
-                    const message = (error as { response?: { data?: { message?: string } } }).response?.data?.message || 'Erro ao atualizar a Postagem';
-                    ToastAlerta(message, "erro");
-                }
+                const message = (error as { response?: { data?: { message?: string } } }).response?.data?.message || 'Erro ao atualizar a Postagem';
+                ToastAlerta(message, "erro");
             }
 
         } else {
@@ -150,13 +136,8 @@ function FormPostagem() {
                 ToastAlerta('Postagem cadastrada com sucesso', "sucesso")
 
             } catch (error) {
-                if (error?.toString().includes('403')) {
-                    ToastAlerta('O token expirou, favor logar novamente', "erro")
-                    handleLogout()
-                } else {
-                    const message = (error as { response?: { data?: { message?: string } } }).response?.data?.message || 'Erro ao cadastrar a Postagem';
-                    ToastAlerta(message, "erro");
-                }
+                const message = (error as { response?: { data?: { message?: string } } }).response?.data?.message || 'Erro ao cadastrar a Postagem';
+                ToastAlerta(message, "erro");
             }
         }
 

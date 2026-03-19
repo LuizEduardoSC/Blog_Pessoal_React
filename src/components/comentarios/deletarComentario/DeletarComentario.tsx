@@ -10,7 +10,7 @@ function DeletarComentario() {
     const navigate = useNavigate();
     const { id } = useParams<{ id: string }>();
 
-    const { usuario, handleLogout } = useContext(AuthContext);
+    const { usuario } = useContext(AuthContext);
     const token = usuario.token;
 
     const [isLoading, setIsLoading] = useState(false);
@@ -22,12 +22,9 @@ function DeletarComentario() {
                 headers: { Authorization: token },
             });
         } catch (error) {
-            if (error?.toString().includes('403')) {
-                ToastAlerta('O token expirou!', 'erro');
-                handleLogout();
-            }
+            console.error("Erro ao buscar comentário por ID:", error);
         }
-    }, [token, handleLogout]);
+    }, [token]);
 
     useEffect(() => {
         if (token === '') {
@@ -54,12 +51,8 @@ function DeletarComentario() {
             });
             ToastAlerta('Comentário excluído com sucesso!', 'sucesso');
         } catch (error) {
-            if (error?.toString().includes('403')) {
-                ToastAlerta('O token expirou!', 'erro');
-                handleLogout();
-            } else {
-                ToastAlerta('Erro ao excluir o comentário.', 'erro');
-            }
+            console.error("Erro ao excluir comentário:", error);
+            ToastAlerta('Erro ao excluir o comentário.', 'erro');
         }
         setIsLoading(false);
         retornar();

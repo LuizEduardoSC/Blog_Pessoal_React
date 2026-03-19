@@ -21,7 +21,7 @@ function DeletarPostagem() {
     const { id } = useParams<{ id: string }>()  // Aqui, pegamos da URL um parametro/variavel chamado ID. Veja a rota de editarPostagem no APP.tsx 
 
     // Pega as informações que queremos do nosso Contexto através do hook useContexto
-    const { usuario, handleLogout } = useContext(AuthContext)
+    const { usuario } = useContext(AuthContext)
     const token = usuario.token
 
     // Função que vai chamada a service de Buscar para buscarmos uma Postagem em Especifico
@@ -33,12 +33,9 @@ function DeletarPostagem() {
                 }
             })
         } catch (error) {
-            if (error?.toString().includes('403')) {
-                ToastAlerta('O token expirou, favor logar novamente', '')
-                handleLogout()
-            }
+            console.error("Erro ao buscar postagem por ID:", error);
         }
-    }, [token, handleLogout]);
+    }, [token]);
 
     // Função de Efeito Colateral - Sempre que a variavel token, tiver o seu valor alterado
     // uma função  é disparada, essa função verifica se o token é IDÊNTICO a "", se sim, isso indica que o usuário NÃO ESTÁ LOGADO.

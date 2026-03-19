@@ -16,7 +16,7 @@ function ListaPostagens() {
     const [searchTerm, setSearchTerm] = useState("");
     const [isLoading, setIsLoading] = useState(true);
 
-    const { usuario, handleLogout } = useContext(AuthContext);
+    const { usuario } = useContext(AuthContext);
     const token = usuario.token;
 
     const buscarPostagens = useCallback(async () => {
@@ -28,13 +28,10 @@ function ListaPostagens() {
                 },
             });
         } catch (error) {
-            if (error?.toString().includes('403')) {
-                ToastAlerta('O token expirou, favor logar novamente', "erro");
-                handleLogout();
-            }
+            console.error("Erro ao buscar postagens:", error);
         }
         setIsLoading(false);
-    }, [token, handleLogout]);
+    }, [token]);
 
     useEffect(() => {
         if (token === '') {

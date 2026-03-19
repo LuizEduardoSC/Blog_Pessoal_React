@@ -4,7 +4,6 @@ import { AuthContext } from '../../../contexts/AuthContext';
 import Comentario from '../../../models/Comentario';
 import Postagem from '../../../models/Postagem';
 import { buscar } from '../../../services/Service';
-import { ToastAlerta } from '../../../utils/ToastAlerts';
 import CardComentario from '../cardComentario/CardComentario';
 import FormComentario from '../formComentario/FormComentario';
 
@@ -13,7 +12,7 @@ interface ListaComentariosProps {
 }
 
 function ListaComentarios({ postagem }: ListaComentariosProps) {
-    const { usuario, handleLogout } = useContext(AuthContext);
+    const { usuario } = useContext(AuthContext);
     const token = usuario.token;
 
     const [comentarios, setComentarios] = useState<Comentario[]>([]);
@@ -27,13 +26,10 @@ function ListaComentarios({ postagem }: ListaComentariosProps) {
                 headers: { Authorization: token },
             });
         } catch (error) {
-            if (error?.toString().includes('403')) {
-                ToastAlerta('O token expirou, favor logar novamente', 'erro');
-                handleLogout();
-            }
+            console.error("Erro ao buscar comentários:", error);
         }
         setIsLoading(false);
-    }, [postagem.id, token, handleLogout]);
+    }, [postagem.id, token]);
 
     useEffect(() => {
         buscarComentarios();

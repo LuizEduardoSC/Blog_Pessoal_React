@@ -17,7 +17,7 @@ function ListaTemas() {
     const [searchTerm, setSearchTerm] = useState("");
     const [isLoading, setIsLoading] = useState(true);
 
-    const { usuario, handleLogout } = useContext(AuthContext)
+    const { usuario } = useContext(AuthContext)
     const token = usuario.token
 
     const buscarTemas = useCallback(async () => {
@@ -27,13 +27,10 @@ function ListaTemas() {
                 headers: { Authorization: token }
             });
         } catch (error) {
-            if (error?.toString().includes('403')) {
-                ToastAlerta('O token Expirou!', "erro");
-                handleLogout();
-            }
+            console.error("Erro ao buscar temas:", error);
         }
         setIsLoading(false);
-    }, [token, handleLogout]);
+    }, [token]);
 
     useEffect(() => {
         if (token === '') {

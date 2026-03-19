@@ -4,31 +4,39 @@ const api = axios.create({
     baseURL: import.meta.env.VITE_API_URL
 })
 
-export const cadastrarUsuario = async (url: string, dados: Object, setDados: Function) => {
+export const cadastrarUsuario = async <T>(url: string, dados: object, setDados: (dados: T) => void) => {
     const resposta = await api.post(url, dados)
     setDados(resposta.data)
 }
 
-export const login = async (url: string, dados: Object, setDados: Function) => {
+export const login = async <T>(url: string, dados: object, setDados: (dados: T) => void) => {
     const resposta = await api.post(url, dados)
     setDados(resposta.data)
 }
 
-export const buscar = async (url: string, setDados: Function, header: Object) => {
+export const buscar = async <T>(url: string, setDados: (dados: T) => void, header: object) => {
     const resposta = await api.get(url, header)
-    setDados(resposta.data)
+    
+    // Se a resposta for paginada (Spring Data Page), extraímos o 'content'
+    if (resposta.data && Array.isArray(resposta.data.content)) {
+        setDados(resposta.data.content as T)
+    } else {
+        setDados(resposta.data)
+    }
 }
 
-export const cadastrar = async (url: string, dados: Object, setDados: Function, header: Object) => {
+export const cadastrar = async <T>(url: string, dados: object, setDados: (dados: T) => void, header: object) => {
     const resposta = await api.post(url, dados, header)
     setDados(resposta.data)
 }
 
-export const atualizar = async (url: string, dados: Object, setDados: Function, header: Object) => {
+export const atualizar = async <T>(url: string, dados: object, setDados: (dados: T) => void, header: object) => {
     const resposta = await api.put(url, dados, header)
     setDados(resposta.data)
 }
 
-export const deletar = async (url: string, header: Object) => {
+export const deletar = async (url: string, header: object) => {
     await api.delete(url, header)
 }
+
+export { api };

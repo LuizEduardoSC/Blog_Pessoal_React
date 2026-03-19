@@ -1,7 +1,8 @@
 import { ReactNode, createContext, useEffect, useState } from "react";
 import UsuarioLogin from "../models/UsuarioLogin";
-import { login } from "../services/Service";
+import { login, api } from "../services/Service";
 import { ToastAlerta } from "../utils/ToastAlerts";
+import { useLayoutEffect } from "react";
 
 interface AuthContextProps {
     usuario: UsuarioLogin
@@ -58,6 +59,22 @@ export function AuthProvider({ children }: AuthProvidersProps) {
         localStorage.removeItem('usuario')
         setUsuario(usuarioInicial)
     }
+
+    useLayoutEffect(() => {
+        const interceptor = api.interceptors.response.use(
+            (response) => response,
+            (error) => {
+                if (error.response?.status === 401 || error.response?.status === 403) {
+                    handleLogout();
+                }
+                return Promise.reject(error);
+            }
+        );
+
+        return () => {
+            api.interceptors.response.eject(interceptor);
+        };
+    }, []);
 
     return(
         <AuthContext.Provider value={{ usuario, handleLogin, handleLogout, isLoading}}>

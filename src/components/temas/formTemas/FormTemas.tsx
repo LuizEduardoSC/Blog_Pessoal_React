@@ -13,7 +13,7 @@ function FormTema() {
     const [tema, setTema] = useState<Tema>({} as Tema)
     const [isLoading, setIsLoading] = useState<boolean>(false)
 
-    const { usuario, handleLogout } = useContext(AuthContext)
+    const { usuario } = useContext(AuthContext)
     const token = usuario.token
 
     const { id } = useParams<{ id: string }>();
@@ -24,12 +24,9 @@ function FormTema() {
                 headers: { Authorization: token }
             })
         } catch (error) {
-            if (error?.toString().includes('403')) {
-                ToastAlerta('O token Expirou!', "erro")
-                handleLogout()
-            }
+            console.error("Erro ao buscar tema por ID:", error);
         }
-    }, [token, handleLogout]);
+    }, [token]);
 
     useEffect(() => {
         if (token === '') {
@@ -66,13 +63,8 @@ function FormTema() {
                 })
                 ToastAlerta('O Tema foi atualizado com sucesso!', "sucesso")
             } catch (error) {
-                if (error?.toString().includes('403')) {
-                    ToastAlerta('O Token Expirou!', "erro")
-                    handleLogout();
-                } else {
-                    ToastAlerta('Erro ao atualizar o tema.', "erro")
-                }
-
+                console.error("Erro ao atualizar tema:", error);
+                ToastAlerta('Erro ao atualizar o tema.', "erro")
             }
         } else {
             try {
@@ -81,13 +73,8 @@ function FormTema() {
                 })
                 ToastAlerta('O Tema foi cadastrado com sucesso!', "sucesso")
             } catch (error) {
-                if (error?.toString().includes('403')) {
-                    ToastAlerta('O Token Expirou!', "erro")
-                    handleLogout();
-                } else {
-                    ToastAlerta('Erro ao cadastrar o tema.', "erro")
-                }
-
+                console.error("Erro ao cadastrar tema:", error);
+                ToastAlerta('Erro ao cadastrar o tema.', "erro")
             }
         }
 
