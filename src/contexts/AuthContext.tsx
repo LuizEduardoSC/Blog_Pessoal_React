@@ -9,6 +9,8 @@ interface AuthContextProps {
     handleLogout(): void
     handleLogin(usuario: UsuarioLogin): Promise<void>
     setUsuario: React.Dispatch<React.SetStateAction<UsuarioLogin>>
+    isOnline: boolean
+    setIsOnline: React.Dispatch<React.SetStateAction<boolean>>
     isLoading: boolean
 }
 
@@ -35,6 +37,7 @@ export function AuthProvider({ children }: AuthProvidersProps) {
     })
 
     const [isLoading, setIsLoading] = useState(false)
+    const [isOnline, setIsOnline] = useState(true);
 
     useEffect(() => {
         if (usuario.token !== '') {
@@ -78,7 +81,7 @@ export function AuthProvider({ children }: AuthProvidersProps) {
     }, []);
 
     return(
-        <AuthContext.Provider value={{ usuario, handleLogin, handleLogout, setUsuario, isLoading}}>
+        <AuthContext.Provider value={{ usuario, handleLogin, handleLogout, setUsuario, isOnline, setIsOnline, isLoading}}>
             {children}
         </AuthContext.Provider>
     )

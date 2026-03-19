@@ -9,7 +9,7 @@ function Navbar() {
     const navigate = useNavigate();
     const [isMenuOpen, setIsMenuOpen] = useState(false);
 
-    const { usuario, handleLogout } = useContext(AuthContext);
+    const { usuario, handleLogout, isOnline, setIsOnline } = useContext(AuthContext);
     const themeContext = useContext(ThemeContext);
 
     if (!themeContext) return null;
@@ -41,13 +41,16 @@ function Navbar() {
                         <Link to="/temas" className="hover:text-indigo-200 transition-colors">Temas</Link>
                         <Link to="/cadastrartema" className="hover:text-indigo-200 transition-colors">Novo Tema</Link>
                         <Link to="/perfil" className="hover:text-indigo-200 transition-colors flex items-center gap-2">
-                            <div className="relative">
+                            <div className="relative cursor-pointer group" title={isOnline ? "Ficar Offline" : "Ficar Online"} onClick={() => {
+                                setIsOnline(!isOnline);
+                                ToastAlerta(`Você agora está ${!isOnline ? "Online" : "Offline"}`, "info");
+                            }}>
                                 {usuario.foto ? (
-                                    <img src={usuario.foto} alt={usuario.nome} className="w-8 h-8 rounded-full object-cover border border-white/50" />
+                                    <img src={usuario.foto} alt={usuario.nome} className="w-8 h-8 rounded-full object-cover border border-white/50 group-hover:opacity-80 transition-opacity" />
                                 ) : (
                                     <UserCircle size={24} />
                                 )}
-                                <span className="absolute bottom-0 right-0 block h-2.5 w-2.5 rounded-full bg-green-500 ring-2 ring-indigo-900 border border-white animate-pulse"></span>
+                                <span className={`absolute bottom-0 right-0 block h-2.5 w-2.5 rounded-full ring-2 ring-indigo-900 border border-white transition-colors duration-300 ${isOnline ? "bg-green-500" : "bg-slate-400"}`}></span>
                             </div>
                             Perfil
                         </Link>
@@ -79,17 +82,23 @@ function Navbar() {
                         <Link to="/postagens" onClick={() => setIsMenuOpen(false)} className="hover:bg-white/10 py-2 rounded-lg transition-colors">Postagens</Link>
                         <Link to="/temas" onClick={() => setIsMenuOpen(false)} className="hover:bg-white/10 py-2 rounded-lg transition-colors">Temas</Link>
                         <Link to="/cadastrartema" onClick={() => setIsMenuOpen(false)} className="hover:bg-white/10 py-2 rounded-lg transition-colors">Novo Tema</Link>
-                        <Link to="/perfil" onClick={() => setIsMenuOpen(false)} className="hover:bg-white/10 py-2 rounded-lg transition-colors flex items-center justify-center gap-2">
-                            <div className="relative">
+                        <div onClick={() => setIsMenuOpen(false)}>
+                        <Link to="/perfil" className="hover:bg-white/10 py-2 rounded-lg transition-colors flex items-center justify-center gap-2">
+                            <div className="relative cursor-pointer" onClick={(e) => {
+                                e.stopPropagation();
+                                setIsOnline(!isOnline);
+                                ToastAlerta(`Você agora está ${!isOnline ? "Online" : "Offline"}`, "info");
+                            }}>
                                 {usuario.foto ? (
                                     <img src={usuario.foto} alt={usuario.nome} className="w-8 h-8 rounded-full object-cover border border-white/50" />
                                 ) : (
                                     <UserCircle size={24} />
                                 )}
-                                <span className="absolute bottom-0 right-0 block h-2.5 w-2.5 rounded-full bg-green-500 ring-2 ring-indigo-900 border border-white animate-pulse"></span>
+                                <span className={`absolute bottom-0 right-0 block h-2.5 w-2.5 rounded-full ring-2 ring-indigo-900 border border-white transition-colors duration-300 ${isOnline ? "bg-green-500" : "bg-slate-400"}`}></span>
                             </div>
                             Perfil
                         </Link>
+                        </div>
                         <Link to="" onClick={logout} className="text-red-400 py-2 rounded-lg hover:bg-red-500/10 transition-colors">Sair</Link>
                     </div>
                 </div>

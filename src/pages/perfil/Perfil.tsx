@@ -7,7 +7,7 @@ import { motion } from 'framer-motion'
 
 function Perfil() {
     const navigate = useNavigate()
-    const { usuario } = useContext(AuthContext)
+    const { usuario, isOnline, setIsOnline } = useContext(AuthContext)
 
     useEffect(() => {
         if (usuario.token === "") {
@@ -44,7 +44,14 @@ function Perfil() {
                                 </div>
                             )}
                             {/* Online Status Dot */}
-                            <span className="absolute bottom-3 right-3 block h-6 w-6 rounded-full bg-green-500 ring-4 ring-white dark:ring-slate-900 border-2 border-white animate-pulse"></span>
+                            <span 
+                                onClick={() => {
+                                    setIsOnline(!isOnline);
+                                    ToastAlerta(`Você agora está ${!isOnline ? "Online" : "Offline"}`, "info");
+                                }}
+                                className={`absolute bottom-3 right-3 block h-6 w-6 rounded-full ring-4 ring-white dark:ring-slate-900 border-2 border-white cursor-pointer transition-all duration-300 hover:scale-110 active:scale-95 ${isOnline ? "bg-green-500 shadow-[0_0_15px_rgba(34,197,94,0.5)]" : "bg-slate-400"}`}
+                                title={isOnline ? "Mudar para Offline" : "Mudar para Online"}
+                            ></span>
                         </div>
 
                         <div className='flex-1 mb-2'>
