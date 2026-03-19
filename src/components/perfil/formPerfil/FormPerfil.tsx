@@ -89,11 +89,24 @@ function FormPerfil() {
                         id="usuario"
                         name="usuario"
                         placeholder="usuario@email.com"
-                        className="border-2 border-slate-700 rounded p-2 bg-white dark:bg-slate-800 dark:text-white transition-colors focus:ring-2 focus:ring-indigo-500 outline-none"
+                        className="border-2 border-slate-700 rounded p-2 bg-white dark:bg-slate-800 dark:text-white transition-colors focus:ring-2 focus:ring-indigo-500 outline-none font-medium"
                         value={perfil.usuario}
                         onChange={(e: ChangeEvent<HTMLInputElement>) => atualizarEstado(e)}
                         required
                     />
+                </div>
+                <div className="flex flex-col gap-2">
+                    <label htmlFor="senha" className="dark:text-slate-100 font-semibold">Nova Senha (Opcional)</label>
+                    <input
+                        type="password"
+                        id="senha"
+                        name="senha"
+                        placeholder="Mínimo 8 caracteres para alterar"
+                        className="border-2 border-slate-700 rounded p-2 bg-white dark:bg-slate-800 dark:text-white transition-colors focus:ring-2 focus:ring-indigo-500 outline-none font-medium"
+                        value={perfil.senha}
+                        onChange={(e: ChangeEvent<HTMLInputElement>) => atualizarEstado(e)}
+                    />
+                    <p className="text-xs text-slate-500 dark:text-slate-400">Deixe em branco para manter a senha atual.</p>
                 </div>
                 <div className="flex flex-col gap-2">
                     <label htmlFor="foto" className="dark:text-slate-100 font-semibold">URL da Foto</label>
