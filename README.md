@@ -8,7 +8,10 @@ Este é o projeto frontend de um **Blog Pessoal**, desenvolvido com as tecnologi
 
 O projeto está disponível para visualização online através do link abaixo:
 
-> **[Clique aqui para acessar o App](https://blog-pessoal-react-one-ruby.vercel.app/)**
+> **<a href="https://blog-pessoal-react-one-ruby.vercel.app/" target="_blank">Clique aqui para acessar o App</a>**
+
+> [!NOTE]
+> **Importante:** Como o backend está hospedado no Render (free tier), a aplicação pode demorar de 30 a 50 segundos para carregar no primeiro acesso. Isso ocorre porque o servidor "acorda" após um período de inatividade. 🚀
 
 ---
 
