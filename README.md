@@ -4,6 +4,14 @@ Este é o projeto frontend de um **Blog Pessoal**, desenvolvido com as tecnologi
 
 ---
 
+## 🌐 Acesse o App
+
+O projeto está disponível para visualização online através do link abaixo:
+
+> **[Clique aqui para acessar o App](https://blog-pessoal-react-one-ruby.vercel.app/)**
+
+---
+
 ## 🚀 O que o projeto faz?
 
 O sistema funciona como uma plataforma de blog completa, onde é possível:
